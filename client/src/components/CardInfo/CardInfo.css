@@ -1,0 +1,23 @@
+table,
+th,
+td {
+  border: 2px dotted black;
+}
+
+th {
+  padding: 5px;
+}
+
+.color-square {
+  border: 2px solid #ffc0cb;
+  background: #ffc0cb;
+  width: 5px;
+  height: 5px;
+}
+
+.name-column {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}

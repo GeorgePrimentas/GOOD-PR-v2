@@ -6,12 +6,15 @@ const CardInfo = () => {
       <h3>Team members</h3>
       <aside>
         <table>
-          <tr>
-            <th>Members</th>
-            <th>Percentage</th>
-            <th>PRs</th>
-            <th>Difference</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Members</th>
+              <th>Percentage</th>
+              <th>PRs</th>
+              <th>Difference</th>
+            </tr>
+          </thead>
+
           <tr>
             <td className="name-column">
               <div className="color-square"></div>Person 1

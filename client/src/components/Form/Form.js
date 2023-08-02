@@ -63,7 +63,7 @@ const Form = () => {
       </div>
       <div>
         <label htmlFor="projectBrief">Project Brief:</label>
-        <textarea
+        <input
           type="url"
           id="projectBrief"
           name="projectBrief"

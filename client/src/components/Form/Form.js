@@ -41,7 +41,6 @@ const Form = () => {
       });
 
       const data = await response.json();
-      console.log(data);
 
       setFormData(initialFormState);
     } catch (error) {

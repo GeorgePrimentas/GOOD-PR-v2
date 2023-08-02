@@ -1,27 +1,32 @@
 import React, { useState } from "react";
-
 const Form = () => {
-  const [teamName, setTeamName] = useState("");
-  const [projectBrief, setProjectBrief] = useState("");
-  const [githubRepo, setGithubRepo] = useState("");
-  const [githubProjectBoard, setGithubProjectBoard] = useState("");
-  const [deployedApp, setDeployedApp] = useState("");
-  const [slackChannel, setSlackChannel] = useState("");
+  const initialFormState = {
+    teamName: "",
+    projectBrief: "",
+    githubRepo: "",
+    githubProjectBoard: "",
+    deployedApp: "",
+    slackChannel: "",
+    memberName1: "",
+    memberName2: "",
+    memberName3: "",
+    memberName4: "",
+    role1: "",
+    role2: "",
+    role3: "",
+    role4: "",
+    githubUsername1: "",
+    githubUsername2: "",
+    githubUsername3: "",
+    githubUsername4: "",
+  };
 
-  const [memberName1, setMemberName1] = useState("");
-  const [memberName2, setMemberName2] = useState("");
-  const [memberName3, setMemberName3] = useState("");
-  const [memberName4, setMemberName4] = useState("");
+  const [formData, setFormData] = useState(initialFormState);
 
-  const [role1, setRole1] = useState("");
-  const [role2, setRole2] = useState("");
-  const [role3, setRole3] = useState("");
-  const [role4, setRole4] = useState("");
-
-  const [githubUsername1, setGithubUsername1] = useState("");
-  const [githubUsername2, setGithubUsername2] = useState("");
-  const [githubUsername3, setGithubUsername3] = useState("");
-  const [githubUsername4, setGithubUsername4] = useState("");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,53 +37,13 @@ const Form = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          teamName,
-          projectBrief,
-          githubRepo,
-          githubProjectBoard,
-          deployedApp,
-          slackChannel,
-
-          memberName1,
-          memberName2,
-          memberName3,
-          memberName4,
-          role1,
-          role2,
-          role3,
-          role4,
-          githubUsername1,
-          githubUsername2,
-          githubUsername3,
-          githubUsername4,
-        }),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
       console.log(data);
 
-      setTeamName("");
-      setProjectBrief("");
-      setGithubRepo("");
-      setGithubProjectBoard("");
-      setDeployedApp("");
-      setSlackChannel("");
-
-      setMemberName1("");
-      setMemberName2("");
-      setMemberName3("");
-      setMemberName4("");
-
-      setRole1("");
-      setRole2("");
-      setRole3("");
-      setRole4("");
-
-      setGithubUsername1("");
-      setGithubUsername2("");
-      setGithubUsername3("");
-      setGithubUsername4("");
+      setFormData(initialFormState);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -92,8 +57,8 @@ const Form = () => {
           type="text"
           id="teamName"
           name="teamName"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
+          value={formData.teamName}
+          onChange={handleChange}
           required
         />
       </div>
@@ -103,8 +68,8 @@ const Form = () => {
           type="url"
           id="projectBrief"
           name="projectBrief"
-          value={projectBrief}
-          onChange={(e) => setProjectBrief(e.target.value)}
+          value={formData.projectBrief}
+          onChange={handleChange}
           required
         />
       </div>
@@ -114,8 +79,8 @@ const Form = () => {
           type="url"
           id="githubRepo"
           name="githubRepo"
-          value={githubRepo}
-          onChange={(e) => setGithubRepo(e.target.value)}
+          value={formData.githubRepo}
+          onChange={handleChange}
           required
         />
       </div>
@@ -125,8 +90,8 @@ const Form = () => {
           type="url"
           id="githubProjectBoard"
           name="githubProjectBoard"
-          value={githubProjectBoard}
-          onChange={(e) => setGithubProjectBoard(e.target.value)}
+          value={formData.githubProjectBoard}
+          onChange={handleChange}
           required
         />
       </div>
@@ -136,8 +101,8 @@ const Form = () => {
           type="url"
           id="deployedApp"
           name="deployedApp"
-          value={deployedApp}
-          onChange={(e) => setDeployedApp(e.target.value)}
+          value={formData.deployedApp}
+          onChange={handleChange}
           required
         />
       </div>
@@ -148,8 +113,8 @@ const Form = () => {
           type="text"
           id="slackChannel"
           name="slackChannel"
-          value={slackChannel}
-          onChange={(e) => setSlackChannel(e.target.value)}
+          value={formData.slackChannel}
+          onChange={handleChange}
           required
         />
       </div>
@@ -160,8 +125,8 @@ const Form = () => {
           type="text"
           id="memberName1"
           name="memberName1"
-          value={memberName1}
-          onChange={(e) => setMemberName1(e.target.value)}
+          value={formData.memberName1}
+          onChange={handleChange}
           required
         />
       </div>
@@ -171,8 +136,8 @@ const Form = () => {
           type="text"
           id="role1"
           name="role1"
-          value={role1}
-          onChange={(e) => setRole1(e.target.value)}
+          value={formData.role1}
+          onChange={handleChange}
           required
         />
       </div>
@@ -183,8 +148,8 @@ const Form = () => {
           type="text"
           id="githubUsername1"
           name="githubUsername1"
-          value={githubUsername1}
-          onChange={(e) => setGithubUsername1(e.target.value)}
+          value={formData.githubUsername1}
+          onChange={handleChange}
           required
         />
       </div>
@@ -195,8 +160,8 @@ const Form = () => {
           type="text"
           id="memberName2"
           name="memberName2"
-          value={memberName2}
-          onChange={(e) => setMemberName2(e.target.value)}
+          value={formData.memberName2}
+          onChange={handleChange}
           required
         />
       </div>
@@ -206,8 +171,8 @@ const Form = () => {
           type="text"
           id="role2"
           name="role2"
-          value={role2}
-          onChange={(e) => setRole2(e.target.value)}
+          value={formData.role2}
+          onChange={handleChange}
           required
         />
       </div>
@@ -218,8 +183,8 @@ const Form = () => {
           type="text"
           id="githubUsername2"
           name="githubUsername2"
-          value={githubUsername2}
-          onChange={(e) => setGithubUsername2(e.target.value)}
+          value={formData.githubUsername2}
+          onChange={handleChange}
           required
         />
       </div>
@@ -230,8 +195,8 @@ const Form = () => {
           type="text"
           id="memberName3"
           name="memberName3"
-          value={memberName3}
-          onChange={(e) => setMemberName3(e.target.value)}
+          value={formData.memberName3}
+          onChange={handleChange}
           required
         />
       </div>
@@ -241,8 +206,8 @@ const Form = () => {
           type="text"
           id="role3"
           name="role3"
-          value={role3}
-          onChange={(e) => setRole3(e.target.value)}
+          value={formData.role3}
+          onChange={handleChange}
           required
         />
       </div>
@@ -253,8 +218,8 @@ const Form = () => {
           type="text"
           id="githubUsername3"
           name="githubUsername3"
-          value={githubUsername3}
-          onChange={(e) => setGithubUsername3(e.target.value)}
+          value={formData.githubUsername3}
+          onChange={handleChange}
           required
         />
       </div>
@@ -265,8 +230,8 @@ const Form = () => {
           type="text"
           id="memberName4"
           name="memberName4"
-          value={memberName4}
-          onChange={(e) => setMemberName4(e.target.value)}
+          value={formData.memberName4}
+          onChange={handleChange}
           required
         />
       </div>
@@ -276,8 +241,8 @@ const Form = () => {
           type="text"
           id="role4"
           name="role4"
-          value={role4}
-          onChange={(e) => setRole4(e.target.value)}
+          value={formData.role4}
+          onChange={handleChange}
           required
         />
       </div>
@@ -288,8 +253,8 @@ const Form = () => {
           type="text"
           id="githubUsername4"
           name="githubUsername4"
-          value={githubUsername4}
-          onChange={(e) => setGithubUsername4(e.target.value)}
+          value={formData.githubUsername4}
+          onChange={handleChange}
           required
         />
       </div>

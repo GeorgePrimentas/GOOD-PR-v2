@@ -85,7 +85,7 @@ async function startServer() {
         const memberValues = [teamId, memberName, role, githubUsername];
         await dataBase.query(memberInsertQuery, memberValues);
       }
-      res.json({ success: true });
+      res.status(200).json({message: "Team information submitted"});
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ error: "Internal server error" });

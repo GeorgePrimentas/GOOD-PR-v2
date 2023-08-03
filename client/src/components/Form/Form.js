@@ -24,23 +24,48 @@ const Form = () => {
   const [formData, setFormData] = useState(initialFormState);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    e.preventDefault();
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const tableData = {
+      teamName: formData.teamName,
+      projectBrief: formData.projectBrief,
+      githubRepo: formData.githubRepo,
+      githubProject: formData.githubProject,
+      deployedApp: formData.deployedApp,
+      slackChannel: formData.slackChannel,
+      memberName1: formData.memberName1,
+      memberName2: formData.memberName2,
+      memberName3: formData.memberName3,
+      memberName4: formData.memberName4,
+      role1: formData.role1,
+      role2: formData.role2,
+      role3: formData.role3,
+      role4: formData.role4,
+      githubUsername1: formData.githubUsername1,
+      githubUsername2: formData.githubUsername2,
+      githubUsername3: formData.githubUsername3,
+      githubUsername4: formData.githubUsername4,
+    };
+
     try {
-      const response = await fetch("http://localhost:8000/submit-form", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://good-pr-v1-server.onrender.com/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(tableData),
+        }
+      );
 
       const data = await response.json();
+      console.log("Success:", data);
 
       setFormData(initialFormState);
     } catch (error) {
@@ -84,12 +109,12 @@ const Form = () => {
         />
       </div>
       <div>
-        <label htmlFor="githubProjectBoard">GitHub Project Board:</label>
+        <label htmlFor="githubProject">GitHub Project Board:</label>
         <input
           type="url"
-          id="githubProjectBoard"
-          name="githubProjectBoard"
-          value={formData.githubProjectBoard}
+          id="githubProject"
+          name="githubProject"
+          value={formData.githubProject}
           onChange={handleChange}
           required
         />

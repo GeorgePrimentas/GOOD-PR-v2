@@ -1,0 +1,9 @@
+.team-box {
+  border: 2px solid #adff2f;
+  width: 120px;
+  height: 120px;
+  font-size: 20px;
+  background-color: #adff2f;
+  display: flex;
+  align-items: center;
+}

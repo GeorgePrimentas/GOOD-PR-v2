@@ -8,7 +8,7 @@ const GitHubIconSvg = () => {
        < a 
        className="github-icon" 
         href="https://github.com/Gayle-Thompson-Igwebike/GOOD-PR-v1">
-       <img src={GitHubIcon} alt="github icon" /> 
+       <img src={GitHubIcon} alt="github icon"  /> 
        </a>
     )
 

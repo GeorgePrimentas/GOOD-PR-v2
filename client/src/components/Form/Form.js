@@ -4,7 +4,7 @@ const Form = () => {
     teamName: "",
     projectBrief: "",
     githubRepo: "",
-    githubProjectBoard: "",
+    githubProject: "",
     deployedApp: "",
     slackChannel: "",
     memberName1: "",

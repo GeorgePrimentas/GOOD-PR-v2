@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
@@ -11,7 +13,7 @@ app.use(express.json());
 async function startServer() {
   const { Pool } = pkg;
   const pool = new Pool({
-    connectionString: process.env.DB_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
   });
 

@@ -30,12 +30,7 @@ const NavBar = ({ title }) => {
   }, []);
 
   const showHamburgerMenu = windowWidth < 700;
-
-    const handleAboutClick = () => {
-    setShowMenu(false); // Close the off-canvas menu when About is clicked
-    setShowAbout(!showAbout); // Toggle the About component display
-  };
-
+  
   return (
 
       <div className="header-content">

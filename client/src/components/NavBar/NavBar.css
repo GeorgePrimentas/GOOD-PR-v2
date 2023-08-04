@@ -67,7 +67,7 @@
 
 /* Styles for the off-canvas menu */
 .off-canvas-menu {
-    z-index: -1;
+    z-index: 1;
     display: none;
     /* Hide the off-canvas menu by default */
     position: fixed;

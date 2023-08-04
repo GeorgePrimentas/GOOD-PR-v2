@@ -16,13 +16,11 @@ async function startServer() {
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
   });
+  const dataBase = await pool.connect();
 
   app.get("/", (req, res) => {
     res.send("Server is running");
   });
-
-  const dataBase = await pool.connect();
-  console.log(dataBase);
 
   app.post("/submit-form", async (req, res) => {
     const {
@@ -88,14 +86,29 @@ async function startServer() {
         await dataBase.query(memberInsertQuery, memberValues);
       }
 
-    
-
-      res.status(200).json({message: "Team information submitted"});
-
+      res.status(200).json({ message: "Team information submitted" });
     } catch (error) {
       console.error("Error submitting form:", error);
       res.status(500).json({ error: "Internal server error" });
     }
+  });
+
+  app.get("/team", (req, res) => {
+    const getQuery = "SELECT * FROM fp_teams";
+    dataBase
+      .query(getQuery)
+      .then((result) => {
+        if (result.rowCount === 0) {
+          res.status(400).json({ error: "No teams found" });
+        } else {
+          console.log(result.rows);
+          return res.status(200).json(result.rows);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json({ error: error });
+      });
   });
 
   app.listen(8000, () => {

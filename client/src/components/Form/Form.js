@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Form.css";
 const Form = () => {
   const initialFormState = {
     teamName: "",
@@ -74,8 +75,8 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form className="form-container" onSubmit={handleSubmit}>
+      <div className="form-group">
         <label htmlFor="teamName">Team Name:</label>
         <input
           type="text"
@@ -86,7 +87,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="projectBrief">Project Brief:</label>
         <input
           type="url"
@@ -97,7 +98,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="githubRepo">GitHub Repo:</label>
         <input
           type="url"
@@ -108,7 +109,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="githubProject">GitHub Project Board:</label>
         <input
           type="url"
@@ -119,7 +120,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="deployedApp">Deployed App:</label>
         <input
           type="url"
@@ -131,7 +132,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="slackChannel">Slack Channel:</label>
         <input
           type="text"
@@ -143,7 +144,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="memberName1">Member 1:</label>
         <input
           type="text"
@@ -154,7 +155,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="role1">Role:</label>
         <input
           type="text"
@@ -166,7 +167,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="githubUsername1">GitHub Username:</label>
         <input
           type="text"
@@ -178,7 +179,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="memberName2">Member 2:</label>
         <input
           type="text"
@@ -189,7 +190,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="role2">Role:</label>
         <input
           type="text"
@@ -201,7 +202,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="githubUsername2">GitHub Username:</label>
         <input
           type="text"
@@ -213,7 +214,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="memberName3">Member 3:</label>
         <input
           type="text"
@@ -224,7 +225,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="role3">Role:</label>
         <input
           type="text"
@@ -236,7 +237,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="githubUsername3">GitHub Username:</label>
         <input
           type="text"
@@ -248,7 +249,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="memberName4">Member 4:</label>
         <input
           type="text"
@@ -259,7 +260,7 @@ const Form = () => {
           required
         />
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="role4">Role:</label>
         <input
           type="text"
@@ -271,7 +272,7 @@ const Form = () => {
         />
       </div>
 
-      <div>
+      <div className="form-group">
         <label htmlFor="githubUsername4">GitHub Username:</label>
         <input
           type="text"
@@ -283,7 +284,9 @@ const Form = () => {
         />
       </div>
 
-      <button type="submit">Submit</button>
+      <button type="submit" className="submit-btn">
+        Submit
+      </button>
     </form>
   );
 };

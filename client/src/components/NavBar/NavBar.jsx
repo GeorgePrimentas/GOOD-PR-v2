@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './NavBar.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const NavBar = ({ title }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -50,19 +51,30 @@ const NavBar = ({ title }) => {
           </button>
         ) : (
           <nav className="header-links">
-            <a href="#">Team Registration</a>
-            <a href="#">Search</a>
-            <a href="#" onClick={handleAboutClick}>About</a> {/* Add onClick event */}
+            <Link to="/">
+              Home
+            </Link>
+            <Link to="/form">
+              Team Registration
+            </Link>
+            <Link to="/search">
+              Search
+            </Link>
           </nav>
         )}
         {showMenu && (
           <div className={`off-canvas-menu ${showMenu ? "show-off-canvas-menu" : ""}`}>
-            <a href="#" onClick={() => setShowMenu(false)}>Team Registration</a>
-            <a href="#" onClick={() => setShowMenu(false)}>Search</a>
-            <a href="#" onClick={() => setShowMenu(false)}>About</a>
+            <Link to="/" className="list-links">
+              Home
+            </Link>
+            <Link to="/form" className="list-links">
+              Team Registration
+            </Link>
+            <Link to="/search" className="list-links">
+              Search
+            </Link>
           </div>
         )}
-         {showAbout && <div className="about-content">About Us - Some content here</div>} {/* Display the About component */}
       </div>
      
   );

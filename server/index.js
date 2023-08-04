@@ -10,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+import { getTeamDataRouter } from "./getTeamData.js";
+const getTeamDataRoot = "/team";
+
 async function startServer() {
   const { Pool } = pkg;
   const pool = new Pool({
@@ -93,23 +96,7 @@ async function startServer() {
     }
   });
 
-  app.get("/team", (req, res) => {
-    const getQuery = "SELECT * FROM fp_teams";
-    dataBase
-      .query(getQuery)
-      .then((result) => {
-        if (result.rowCount === 0) {
-          res.status(400).json({ error: "No teams found" });
-        } else {
-          console.log(result.rows);
-          return res.status(200).json(result.rows);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        res.status(500).json({ error: error });
-      });
-  });
+  app.use(getTeamDataRoot, getTeamDataRouter);
 
   app.listen(8000, () => {
     console.log("Server started on port 8000 on server");

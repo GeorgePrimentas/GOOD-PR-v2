@@ -6,7 +6,7 @@ import GitHubIcon from "../../images/github-mark.svg";
 const GitHubIconSvg = () => {
     return (
        < a 
-       className="github-icon" 
+       className="githubrepo-icon" 
         href="https://github.com/Gayle-Thompson-Igwebike/GOOD-PR-v1">
        <img src={GitHubIcon} alt="github icon"  /> 
        </a>

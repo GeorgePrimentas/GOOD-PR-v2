@@ -1,16 +1,14 @@
 import { dataBase } from "../index.js";
 
-export async function getAllTeamNames() {
+export async function getAllTeamInfo() {
   try {
-    const result = await dataBase.query("SELECT team_name FROM fp_teams");
+    const result = await dataBase.query("SELECT * FROM fp_teams");
 
     if (result.rowCount === 0) {
       console.log("No teams available");
       throw new Error("No teams available");
     } else {
-      return result.rows.map((eachTeamName) => {
-        return eachTeamName.team_name;
-      });
+      return result.rows;
     }
   } catch (error) {
     console.error("Fetching teams:", error);

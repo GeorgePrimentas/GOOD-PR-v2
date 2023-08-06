@@ -9,12 +9,6 @@ const NavBar = ({ title }) => {
   const [showAbout, setShowAbout] = useState(false); // State for showing the About component
   const [showForm, setShowForm] = useState (false); //(To hide Form upon page load)
 
-  // Update windowWidth state on window resize
-  // useEffect(() => {
-  //   const handleResize = () => setWindowWidth(window.innerWidth);
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
 
   // Update windowWidth state on window resize
   useEffect(() => {

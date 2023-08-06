@@ -2,28 +2,32 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import cors from "cors";
-import { config } from "dotenv";
 import pkg from "pg";
+import router from "./config/router.js";
+const { Pool, PoolClient } = pkg;
 
-config();
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-import { getTeamDataRouter } from "./getTeamData.js";
-const getTeamDataRoot = "/team";
+const port = process.env.PORT || 8000;
+
+export let dataBase;
 
 async function startServer() {
-  const { Pool } = pkg;
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
   });
-  const dataBase = await pool.connect();
 
-  app.get("/", (req, res) => {
-    res.send("Server is running");
+  dataBase = await pool.connect();
+  // console.log(dataBase);
+  app.use(cors());
+  app.use(express.json());
+  app.use((req, res, next) => {
+    console.log(`🚨 Incoming request: ${req.method} - ${req.url}🚨`);
+    next();
   });
+
+  app.use("/", router);
 
   app.post("/submit-form", async (req, res) => {
     const {
@@ -88,7 +92,6 @@ async function startServer() {
         const memberValues = [teamId, memberName, role, githubUsername];
         await dataBase.query(memberInsertQuery, memberValues);
       }
-
       res.status(200).json({ message: "Team information submitted" });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -96,10 +99,8 @@ async function startServer() {
     }
   });
 
-  app.use(getTeamDataRoot, getTeamDataRouter);
-
-  app.listen(8000, () => {
-    console.log("Server started on port 8000 on server");
+  app.listen(port, () => {
+    console.log(`Server started on port ${port} on server`);
   });
 }
 

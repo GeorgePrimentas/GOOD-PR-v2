@@ -15,3 +15,18 @@ export async function getAllTeamInfo() {
     return null;
   }
 }
+
+export async function getAllTeamAndMembersInfo() {
+  try {
+    const result = await dataBase.query(
+      "SELECT * FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id"
+    );
+    if (result.rowCount === 0) {
+      console.log("No teams available");
+    } else {
+      return result.rows;
+    }
+  } catch (error) {
+    console.error("Team info:", error);
+  }
+}

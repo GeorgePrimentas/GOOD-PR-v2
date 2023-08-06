@@ -7,7 +7,8 @@ const NavBar = ({ title }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showMenu, setShowMenu] = useState(false); // State for hamburger menu visibility
   const [showAbout, setShowAbout] = useState(false); // State for showing the About component
-  const [showForm, setShowForm] = useState (false); //(To hide Form upon page load)
+  const [showForm, setShowForm] = useState (false); //(state for showing the Team Registration Form)
+
 
 
   // Update windowWidth state on window resize

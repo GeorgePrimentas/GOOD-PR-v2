@@ -222,7 +222,7 @@ const Form = () => {
           name="memberName3"
           value={formData.memberName3}
           onChange={handleChange}
-          required
+          
         />
       </div>
       <div className="form-group">
@@ -233,7 +233,7 @@ const Form = () => {
           name="role3"
           value={formData.role3}
           onChange={handleChange}
-          required
+          
         />
       </div>
 
@@ -245,7 +245,7 @@ const Form = () => {
           name="githubUsername3"
           value={formData.githubUsername3}
           onChange={handleChange}
-          required
+          
         />
       </div>
 
@@ -257,7 +257,7 @@ const Form = () => {
           name="memberName4"
           value={formData.memberName4}
           onChange={handleChange}
-          required
+          
         />
       </div>
       <div className="form-group">
@@ -268,7 +268,7 @@ const Form = () => {
           name="role4"
           value={formData.role4}
           onChange={handleChange}
-          required
+          
         />
       </div>
 
@@ -280,7 +280,7 @@ const Form = () => {
           name="githubUsername4"
           value={formData.githubUsername4}
           onChange={handleChange}
-          required
+          
         />
       </div>
 

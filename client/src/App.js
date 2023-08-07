@@ -11,6 +11,7 @@ function App() {
 
   function getAllTeamData() {
     fetch("https://good-pr-v1-server.onrender.com/team")
+      // fetch("http://localhost:8000/team")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -33,6 +34,7 @@ function App() {
       </section>
 
       <Form />
+      
     </div>
   );
 }

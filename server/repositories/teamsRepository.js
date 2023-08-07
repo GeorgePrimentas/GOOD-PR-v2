@@ -16,11 +16,17 @@ export async function getAllTeamInfo() {
   }
 }
 
-export async function getAllTeamAndMembersInfo() {
+export async function getAllTeamAndMembersInfo(searchTerm) {
   try {
-    const result = await dataBase.query(
-      "SELECT * FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id"
-    );
+    const getQuery =
+      "SELECT * FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id";
+
+    const searchQuery =
+      "WHERE lower(team_name) LIKE '%' || $1 || '%' OR lower(member_name) LIKE '%' || $1 || '%'";
+
+    const result = await dataBase.query(getQuery + " " + searchQuery, [
+      searchTerm,
+    ]);
     if (result.rowCount === 0) {
       console.log("No teams available");
     } else {

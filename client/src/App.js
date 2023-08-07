@@ -4,17 +4,15 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
-// import getAllTeamData from "./utilities/getAllTeamData";
+import Search from "./components/Search/Search";
 
 function App() {
   const [teamData, setTeamData] = useState([]);
 
   function getAllTeamData() {
     fetch("https://good-pr-v1-server.onrender.com/team")
-      // fetch("http://localhost:8000/team")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setTeamData(data);
       })
       .catch((error) => console.log(error));
@@ -26,6 +24,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Search />
       <section className="team-buttons">
         {teamData.length > 0 &&
           teamData.map((eachTeam) => (
@@ -34,7 +33,6 @@ function App() {
       </section>
 
       <Form />
-      
     </div>
   );
 }

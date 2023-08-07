@@ -1,7 +1,7 @@
 import { Router } from "express";
 import axios from "axios";
 const router = Router();
-import { getAllTeamRepos } from "./repositories/teamsRepository.js"
+import { getAllTeamRepos } from "./repositories/teamsRepository.js";
 
 // (git api request format)
 // https://api.github.com/repos/Gayle-Thompson-Igwebike/Affirmation-page/pulls?state=all
@@ -9,11 +9,9 @@ import { getAllTeamRepos } from "./repositories/teamsRepository.js"
 //example using our goodpR-V1- repo below:
 
 export const getAllTeamMembersPRs = router.get("/", async (req, res) => {
-    const allTeamsRepos = await getAllTeamRepos();
+  const allTeamsRepos = await getAllTeamRepos();
   console.log(allTeamsRepos);
- 
 
-   
   const repoOwner = "Gayle-Thompson-Igwebike";
   const repoName = "GOOD-PR-v1";
   const PullRequestsApiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/pulls?state=all`;
@@ -21,15 +19,13 @@ export const getAllTeamMembersPRs = router.get("/", async (req, res) => {
   axios
     .get(PullRequestsApiUrl)
     .then((response) => {
-      console.log(response);
-      const pullRequests = response.data.items;
-      const pullRequestCount = pullRequests.length;
-
-      console.log(
-        `Total Number of pull request contributions by in this repo is: ${pullRequestCount}`
+      console.log(response.data);
+      const responseUsers = response.data.map((eachUser) =>
+        console.log(eachUser.user.login)
       );
+      const allPullRequestCount = responseUsers.length
 
-      res.status(200).json({ pullRequestCount });
+      res.status(200).json({ allPullRequestCount });
     })
     .catch((error) => {
       console.error("Error fetching pull requests:", error);

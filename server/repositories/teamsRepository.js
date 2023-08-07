@@ -31,23 +31,22 @@ export async function getAllTeamAndMembersInfo() {
   }
 }
 
-
- // FUNCTION TO TRANSFORM REPO LINK URL INTO OWNER AND REPO FOR THE PUT REQUEST FOR PULL REQUESTS
+// FUNCTION TO TRANSFORM REPO LINK URL INTO OWNER AND REPO FOR THE PUT REQUEST FOR PULL REQUESTS
 
 function extractOwnerAndRepoFromUrl(url) {
-// Remove "https://" from the URL and replace with an empty string.
-// All passed URL have to be a string as .replace is a string method.
-const urlWithoutProtocol = url.replace(/^https:\/\//i, "");
+  // Remove "https://" from the URL and replace with an empty string.
+  // All passed URL have to be a string as .replace is a string method.
+  const urlWithoutProtocol = url.replace(/^https:\/\//i, "");
 
-// Split the URL by "/"
-const urlParts = urlWithoutProtocol.split("/");
-console.log(urlParts);
+  // Split the URL by "/"
+  const urlParts = urlWithoutProtocol.split("/");
+  // console.log(urlParts);
 
-// Extract the owner and repo from the URL
-const owner = urlParts[1];
-const repo = urlParts[2];
+  // Extract the owner and repo from the URL
+  const owner = urlParts[1];
+  const repo = urlParts[2];
 
-return { owner, repo };
+  return { owner, repo };
 }
 
 // (TEAMS REPOSITORY)
@@ -60,12 +59,12 @@ export async function getAllTeamRepos() {
       const eachTeamsRepoLink = result.rows.map(
         (eachTeamRepo) => eachTeamRepo.repo_link
       );
-      
+
       const ownerRepoInfo = eachTeamsRepoLink.map((repoURL) =>
-          extractOwnerAndRepoFromUrl(repoURL)
-        );
-        console.log(ownerRepoInfo);
- 
+        extractOwnerAndRepoFromUrl(repoURL)
+      );
+      console.log(ownerRepoInfo);
+
       return ownerRepoInfo;
     }
   } catch (error) {

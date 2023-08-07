@@ -13,7 +13,8 @@ export async function getTeamData(req, res) {
 
 export async function getTeamAndMemberData(req, res) {
   try {
-    const allTeamAndMemberData = await getAllTeamAndMembersInfo();
+    const searchTerm = req.query.term || "";
+    const allTeamAndMemberData = await getAllTeamAndMembersInfo(searchTerm);
     return res.status(200).json(allTeamAndMemberData);
   } catch (error) {
     console.error("Error fetching team data:", error);

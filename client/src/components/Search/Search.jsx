@@ -25,7 +25,7 @@ const Search = ({ teamData }) => {
   return (
     <section>
       <form className="search-form">
-        <label htmlFor="search">Search Teams or Names</label>
+        <label htmlFor="search">Search Teams or Trainees Names</label>
         <input
           id="search"
           name="search"

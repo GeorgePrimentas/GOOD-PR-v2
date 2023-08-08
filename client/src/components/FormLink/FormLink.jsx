@@ -12,13 +12,15 @@ const TeamNotRegistered = () => {
 
   return (
     <div>
-      <p>
-        If you are unable to find your team,
-        <Link to="/registration-form-link-here" style={formLinkStyle}>
-          Please fill out this form
-        </Link>
-        to register your team.
-      </p>
+      {/* <Link to="/registration-form-link-here" style={formLinkStyle} >
+           Can't find your team? Click here to register. 
+       </Link> */}
+
+        <a href="/registration-form-link-here" style={formLinkStyle} > 
+           Can't find your team? Click here to register. 
+          </a>
+        
+    
     </div>
   );
 };

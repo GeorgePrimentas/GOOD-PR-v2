@@ -1,5 +1,4 @@
-import GoogleDocIcon from "../components/GoogleDocsLogo.svg";
-
+import GoogleDocIcon from "../../images/GoogleDocsLogo.svg";
 
 
 

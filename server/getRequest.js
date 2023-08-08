@@ -1,35 +1,57 @@
+import dotenv, { config } from "dotenv";
+dotenv.config();
+config();
 import { Router } from "express";
-import axios from "axios";
 const router = Router();
 import { getAllTeamRepos } from "./repositories/teamsRepository.js";
+import { Octokit } from "octokit";
 
-// (git api request format)
-// https://api.github.com/repos/Gayle-Thompson-Igwebike/Affirmation-page/pulls?state=all
-
-//example using our goodpR-V1- repo below:
-
-export const getAllTeamMembersPRs = router.get("/", async (req, res) => {
-  const allTeamsRepos = await getAllTeamRepos();
-  console.log(allTeamsRepos);
-
-  const repoOwner = "Gayle-Thompson-Igwebike";
-  const repoName = "GOOD-PR-v1";
-  const PullRequestsApiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/pulls?state=all`;
-
-  axios
-    .get(PullRequestsApiUrl)
-    .then((response) => {
-      console.log(response.data);
-      const responseUsers = response.data.map((eachUser) =>
-        console.log(eachUser.user.login)
-      );
-      const allPullRequestCount = responseUsers.length
-
-      res.status(200).json({ allPullRequestCount });
-    })
-    .catch((error) => {
-      console.error("Error fetching pull requests:", error);
-      res.status(500).json({ error: "Internal server error" });
-    });
+const octokit = new Octokit({
+  auth: process.env.TOKEN,
 });
-export default getAllTeamMembersPRs;
+
+export const getAllTeamMembersPRs = router.get("/members", async (req, res) => {
+  try {
+    const allTeamsRepos = await getAllTeamRepos();
+    // console.log(allTeamsRepos);
+
+    const results = [];
+
+    for (const repo of allTeamsRepos) {
+      const response = await octokit.request(
+        `GET /repos/${repo.owner}/${repo.repo}/pulls`,
+        {
+          state: "all",
+        }
+      );
+
+      const newResponse = response.data.map((eachUser) => eachUser.user.login);
+
+      const pullRequestCount = response.data.length;
+
+      const prCount = async (users) => {
+        const count = {};
+
+        for (let eachName of users) {
+          count[eachName] = count[eachName] ? count[eachName] + 1 : 1;
+        }
+        // console.log(count);
+        return count;
+      };
+
+      const eachPRCount = await prCount(newResponse);
+
+      results.push({
+        owner: repo.owner,
+        repo: repo.repo,
+        pullRequestCount: pullRequestCount,
+        users: eachPRCount,
+      });
+    }
+    console.log(results);
+    res.status(200).json(results);
+  } catch (error) {
+    console.error("Error fetching pull requests:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});

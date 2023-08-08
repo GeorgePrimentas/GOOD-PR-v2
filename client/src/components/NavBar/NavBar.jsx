@@ -7,9 +7,7 @@ const NavBar = ({ title }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showMenu, setShowMenu] = useState(false); // State for hamburger menu visibility
   const [showAbout, setShowAbout] = useState(false); // State for showing the About component
-  const [showForm, setShowForm] = useState (false); //(state for showing the Team Registration Form)
-
-
+  
 
   // Update windowWidth state on window resize
   useEffect(() => {
@@ -23,10 +21,7 @@ const NavBar = ({ title }) => {
     setShowMenu(!showMenu);
   };
 
-  //Toggle Form visibility upon clicking Team regitration nav bar element
-  const handleTeamRegistrationFormClick = () => {
-    setShowForm(!showForm);
-  }
+ 
 
   // Add event listener for hamburger menu visibility on window resize
   useEffect(() => {
@@ -58,15 +53,13 @@ const NavBar = ({ title }) => {
             <Link to="/">
               Home
             </Link>
-            {/* <Link to="/form">
+            <Link to="/form">
               Team Registration
-            </Link> */}
+            </Link>
             <Link to="/search">
               Search
             </Link>
-              <button className="link-button" onClick={handleTeamRegistrationFormClick}>
-            Team Registration
-          </button>
+      
           </nav>
         )}
         {showMenu && (
@@ -74,20 +67,13 @@ const NavBar = ({ title }) => {
             <Link to="/" className="list-links">
               Home
             </Link>
-             <button className="list-links" onClick={handleTeamRegistrationFormClick}>
-            Team Registration
-          </button>
+            
             <Link to="/search" className="list-links">
               Search
             </Link>
           </div>
         )}
 
-         {showForm && (
-        <div className="team-registration-form">
-          <Form/>
-        </div>
-      )}
       </div>
      
   );

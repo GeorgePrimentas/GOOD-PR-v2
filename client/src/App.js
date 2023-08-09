@@ -5,6 +5,9 @@ import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
+import SlackIconSvg from "./components/SlackIconSvg/SlackIconSvg";
+
+
 
 function App() {
   const [teamData, setTeamData] = useState([]);
@@ -34,6 +37,7 @@ function App() {
       </section>
 
       <Form />
+      < SlackIconSvg />
       
     </div>
   );

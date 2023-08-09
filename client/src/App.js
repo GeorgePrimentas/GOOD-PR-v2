@@ -37,7 +37,7 @@ function App() {
       </section>
 
       <Form />
-      < SlackIconSvg />
+      
       
     </div>
   );

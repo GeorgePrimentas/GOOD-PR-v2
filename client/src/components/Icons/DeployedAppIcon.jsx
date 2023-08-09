@@ -6,9 +6,9 @@ import DeployedAppIcon from "../../images/DeployedSite.svg";
 const DeployedAppIconSvg = () => {
     return (
        < a 
-       className="projectBoard-icon" 
+       className="deployed-site-icon" 
         href="https://github.com/Gayle-Thompson-Igwebike/GOOD-PR-v1">
-       <img src={DeployedAppIcon} alt="github icon"  /> 
+       <img src={DeployedAppIcon} alt="desktop icon"  /> 
        </a>
     )
 

@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
+import ProjectBoardIconSvg from "./components/Icons/ProjectBoardIcon.jsx";
 
 function App() {
   const [teamData, setTeamData] = useState([]);
@@ -34,6 +35,7 @@ function App() {
       </section>
 
       <Form />
+      < ProjectBoardIconSvg />
       
     </div>
   );

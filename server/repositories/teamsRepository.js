@@ -49,23 +49,31 @@ function extractOwnerAndRepoFromUrl(url) {
   return { owner, repo };
 }
 
-// (TEAMS REPOSITORY)
 export async function getAllTeamRepos() {
   try {
-    const result = await dataBase.query("SELECT repo_link FROM fp_teams");
+    // let resultTeamData = [];
+
+    const result = await dataBase.query(
+      "SELECT id, repo_link, team_name FROM fp_teams"
+    );
     if (result.rowCount === 0) {
       console.log("No teams available");
     } else {
-      const eachTeamsRepoLink = result.rows.map(
-        (eachTeamRepo) => eachTeamRepo.repo_link
-      );
+      const teamDataInfo = result.rows.map((eachTeamDataInfo) => {
+        const { owner, repo } = extractOwnerAndRepoFromUrl(
+          eachTeamDataInfo.repo_link
+        );
+        return {
+          id: eachTeamDataInfo.id,
+          teamName: eachTeamDataInfo.team_name,
+          owner: owner,
+          repo: repo,
+        };
+      });
 
-      const ownerRepoInfo = eachTeamsRepoLink.map((repoURL) =>
-        extractOwnerAndRepoFromUrl(repoURL)
-      );
-      console.log(ownerRepoInfo);
+      // console.log(teamDataInfo);
 
-      return ownerRepoInfo;
+      return teamDataInfo;
     }
   } catch (error) {
     console.error("Team info:", error);

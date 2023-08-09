@@ -35,7 +35,7 @@ function App() {
       </section>
 
       <Form />
-      < ProjectBoardIconSvg />
+     
       
     </div>
   );

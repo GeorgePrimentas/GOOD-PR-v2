@@ -6,6 +6,7 @@ import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
 
+
 function App() {
   const [teamData, setTeamData] = useState([]);
 
@@ -32,9 +33,8 @@ function App() {
             <ClickableCards key={eachTeam.id} teamName={eachTeam.team_name} />
           ))}
       </section>
-
       <Form />
-      
+     
     </div>
   );
 }

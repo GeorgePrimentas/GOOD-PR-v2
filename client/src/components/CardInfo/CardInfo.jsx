@@ -8,15 +8,18 @@ const CardInfo = ({ pr, allUsers }) => {
         <tr>
           <th>Team Members</th>
           <th>Pull Requests</th>
-          <th>Percentage</th>
+          <th>%</th>
         </tr>
       </thead>
       <tbody>
         {Object.entries(allUsers).map(([username, prCount]) => (
           <tr key={username}>
-            <td>{username}</td>
+            <td className="name-column">
+              <div className="color-square"></div>
+              {username}
+            </td>
             <td>{prCount}</td>
-            <td>{((prCount / pr) * 100).toFixed(2)}%</td>
+            <td>{((prCount / pr) * 100).toFixed(1)}%</td>
           </tr>
         ))}
       </tbody>

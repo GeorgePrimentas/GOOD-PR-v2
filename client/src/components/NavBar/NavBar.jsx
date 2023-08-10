@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import './NavBar.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Form from "../Form/Form";
 
 const NavBar = ({ title }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showMenu, setShowMenu] = useState(false); // State for hamburger menu visibility
   const [showAbout, setShowAbout] = useState(false); // State for showing the About component
+  
 
   // Update windowWidth state on window resize
   useEffect(() => {
@@ -18,6 +20,8 @@ const NavBar = ({ title }) => {
   const handleHamburgerClick = () => {
     setShowMenu(!showMenu);
   };
+
+ 
 
   // Add event listener for hamburger menu visibility on window resize
   useEffect(() => {
@@ -55,6 +59,7 @@ const NavBar = ({ title }) => {
             <Link to="/search">
               Search
             </Link>
+      
           </nav>
         )}
         {showMenu && (
@@ -62,14 +67,13 @@ const NavBar = ({ title }) => {
             <Link to="/" className="list-links">
               Home
             </Link>
-            <Link to="/form" className="list-links">
-              Team Registration
-            </Link>
+            
             <Link to="/search" className="list-links">
               Search
             </Link>
           </div>
         )}
+
       </div>
      
   );

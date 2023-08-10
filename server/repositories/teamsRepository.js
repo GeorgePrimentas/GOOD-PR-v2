@@ -1,6 +1,7 @@
 import dotenv, { config } from "dotenv";
 dotenv.config();
 config();
+import fetch from "node-fetch";
 import { dataBase } from "../index.js";
 
 // GETS ALL TEAMS INFORMATION FROM fp_teams TABLE IN DATABASE
@@ -26,7 +27,7 @@ export async function getAllTeamAndMembersInfo(searchTerm) {
     const getQuery =
       "SELECT * FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id";
     const searchQuery =
-      "WHERE lower(team_name) LIKE '%' || $1 || '%' OR lower(member_name) LIKE '%' || $1 || '%'";
+      "WHERE lower(fpt.team_name) LIKE '%' || $1 || '%' OR lower(fpm.member_name) LIKE '%' || $1 || '%'";
     const result = await dataBase.query(getQuery + " " + searchQuery, [
       searchTerm,
     ]);
@@ -136,7 +137,6 @@ export async function getAllTeamMembersPRs() {
     return results;
   } catch (error) {
     console.error("Error fetching pull requests:", error);
-    res.status(500).json({ error: "Internal server error" });
   }
 }
 

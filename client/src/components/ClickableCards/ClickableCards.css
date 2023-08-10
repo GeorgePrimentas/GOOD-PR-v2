@@ -1,20 +1,29 @@
 .team-box {
-  border: 2px solid #008000;
+  
   width: 90px;
   height: 90px;
   padding: 5px;
   font-size: 20px;
-  background-color: #008000;
+  
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 0.5em;
-  color: #f5f5f5;
+  color: #000;
   font-weight: bold;
   /* The next line breaks words so they don't get out of the boundaries of the button */
   word-break: break-word;
 }
 
+.red {
+background-color: red;
+border: 2px solid red;
+}
+
+.green {
+background-color: #008000;
+border: 2px solid #008000;
+}
 .team-buttons {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));

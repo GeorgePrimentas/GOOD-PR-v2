@@ -1,53 +1,62 @@
-const TrafficLights = ({ teams }) => {
-  const teamsWithContributions = teams.map((team) => {
-  
-    const sizeOfTeam = Object.keys(team.users).length;
+import React, { useEffect } from "react";
 
-    const minimumContribution = 100 / (sizeOfTeam + 1);
-    const maximumContribution = 100 / (sizeOfTeam - 1);
+const TrafficLights = ({ teams, setTeamStatuses }) => {
+  useEffect(() => {
+    console.log("Teams received:", teams); // Log the received teams prop
 
-    return {
-      teamData: team,
-      minimumContribution,
-      maximumContribution,
-    };
-  });
+    const calculatedStatuses = teams.map((team) => {
+      console.log("Calculating for team:", team.team_id); // Log the current team being processed
 
-  return (
-    <div>
-      {teamsWithContributions.map((teamWithContributions, index) => {
-        const { teamData, minimumContribution, maximumContribution } =
-          teamWithContributions;
-        const totalPullRequests = teamData.pullRequestCount;
+      const totalPullRequests = team.pullRequestCount;
+      const sizeOfTeam = Object.keys(team.users).length;
 
-        return (
-          <div key={index}>
-        
-            <ul>
-              {Object.entries(teamData.users).map(([user, prCount]) => {
-                const percentage = (prCount / totalPullRequests) * 100;
+      const minimumContribution = 100 / (sizeOfTeam + 1);
+      const maximumContribution = 100 / (sizeOfTeam - 1);
 
-                const contribution = percentage.toFixed(2);
-                const status =
-                  contribution >= minimumContribution &&
-                  contribution <= maximumContribution
-                    ? contribution + "% OK"
-                    : contribution + "% INTERVENE";
+      const usersWithStatus = Object.entries(team.users).map(
+        ([user, prCount]) => {
+          const percentage = (prCount / totalPullRequests) * 100;
+          const contribution = percentage.toFixed(2);
+          const status =
+            contribution >= minimumContribution &&
+            contribution <= maximumContribution
+              ? "OK"
+              : "INTERVENE";
 
-                return (
-                  <li key={user}>
-                    {user}: {prCount} PRs ({status})
-                  </li>
-                );
-              })}
-            </ul>
-            <p>Minimum Contribution: {minimumContribution.toFixed(2)}%</p>
-            <p>Maximum Contribution: {maximumContribution.toFixed(2)}%</p>
-          </div>
-        );
-      })}
-    </div>
-  );
+          return {
+            user,
+            prCount,
+            contribution: contribution + "%",
+            status,
+          };
+        }
+      );
+
+      const anyIntervene = usersWithStatus.some(
+        (user) => user.status === "INTERVENE"
+      );
+      const allOk = !usersWithStatus.some(
+        (user) => user.status === "INTERVENE"
+      );
+
+      console.log("Users with Status:", usersWithStatus); // Log the calculated usersWithStatus array
+
+      return {
+        teamId: team.team_id,
+        anyIntervene,
+        allOk,
+      };
+    });
+
+    console.log("Calculated Statuses:", calculatedStatuses); // Log the calculated statuses array
+
+    // Update the teamStatuses state using setTeamStatuses function
+    setTeamStatuses(calculatedStatuses);
+
+    console.log("Updated teamStatuses:", calculatedStatuses); // Log the updated teamStatuses state
+  }, [teams, setTeamStatuses]);
+
+  return null; // This component doesn't render anything
 };
 
 export default TrafficLights;

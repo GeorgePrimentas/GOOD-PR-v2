@@ -1,21 +1,27 @@
-import { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
-// import GoogleDocsLogosvg from "./components/Icons/GoogleDocIcon";
-// import GitHubIconSvg from "./components/Icons/GitHubIcon";
-// import getAllTeamData from "./utilities/getAllTeamData";
-// import FormLink from "./components/FormLink/FormLink";
-
+import TrafficLights from "./components/TrafficLights/TrafficLights";
 
 function App() {
   const [teamData, setTeamData] = useState([]);
+  const [prData, setPrData] = useState([]);
+  const [teamStatuses, setTeamStatuses] = useState([]); // Define the teamStatuses state
+
+  async function fetchPrsData() {
+    try {
+      const response = await fetch("http://localhost:8000/api/members");
+      const data = await response.json();
+      setPrData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
 
   function getAllTeamData() {
     fetch("https://good-pr-v1-server.onrender.com/team")
-      // fetch("http://localhost:8000/team")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -26,29 +32,27 @@ function App() {
 
   useEffect(() => {
     getAllTeamData();
+    fetchPrsData();
   }, []);
 
   return (
-      <div className="App">
-        <Header />
-        
-          <section className="team-buttons">
-            {teamData.length > 0 &&
-              teamData.map((eachTeam) => (
-                <ClickableCards
-                  key={eachTeam.id}
-                  teamName={eachTeam.team_name}
-                />
-              ))}
-          </section>
-
-          <Form />
-       
-
-        {/* <FormLink /> */}
-  
-      </div>
-  
+    <div className="App">
+      <Header />
+      <section className="team-buttons">
+        {teamData.length > 0 &&
+          teamData.map((eachTeam) => (
+            <ClickableCards
+              key={eachTeam.id}
+              teamName={eachTeam.team_name}
+              teamId={eachTeam.id}
+              teamStatuses={teamStatuses} // Pass teamStatuses to ClickableCards
+            />
+          ))}
+      </section>
+      <TrafficLights teams={prData} setTeamStatuses={setTeamStatuses} />{" "}
+      {/* Pass setTeamStatuses to TrafficLights */}
+      <Form />
+    </div>
   );
 }
 

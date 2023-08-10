@@ -7,6 +7,7 @@ import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import GoogleDocsLogosvg from "./components/Icons/GoogleDocIcon";
 // import GitHubIconSvg from "./components/Icons/GitHubIcon";
 // import getAllTeamData from "./utilities/getAllTeamData";
+// import FormLink from "./components/FormLink/FormLink";
 
 
 function App() {
@@ -26,21 +27,28 @@ function App() {
   useEffect(() => {
     getAllTeamData();
   }, []);
-  return (
-    <div className="App">
-      <Header />
-      <section className="team-buttons">
-        {teamData.length > 0 &&
-          teamData.map((eachTeam) => (
-            <ClickableCards key={eachTeam.id} teamName={eachTeam.team_name} />
-          ))}
-      </section>
 
-      <Form />
-      {/* < GitHubIconSvg />
-      < GoogleDocsLogosvg /> */}
-      
-    </div>
+  return (
+      <div className="App">
+        <Header />
+        
+          <section className="team-buttons">
+            {teamData.length > 0 &&
+              teamData.map((eachTeam) => (
+                <ClickableCards
+                  key={eachTeam.id}
+                  teamName={eachTeam.team_name}
+                />
+              ))}
+          </section>
+
+          <Form />
+       
+
+        {/* <FormLink /> */}
+  
+      </div>
+  
   );
 }
 

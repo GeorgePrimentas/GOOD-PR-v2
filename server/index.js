@@ -4,7 +4,9 @@ import express from "express";
 import cors from "cors";
 import pkg from "pg";
 import router from "./config/router.js";
+import { getAllTeamMembersPRs } from "./getRequest.js";
 const { Pool, PoolClient } = pkg;
+const apiRoot = "/api";
 
 const app = express();
 
@@ -28,6 +30,9 @@ async function startServer() {
   });
 
   app.use("/", router);
+
+  
+  app.use(apiRoot, getAllTeamMembersPRs);
 
   app.post("/submit-form", async (req, res) => {
     const {

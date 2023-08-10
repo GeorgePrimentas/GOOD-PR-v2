@@ -4,11 +4,10 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
+// import GoogleDocsLogosvg from "./components/Icons/GoogleDocIcon";
+// import GitHubIconSvg from "./components/Icons/GitHubIcon";
 // import getAllTeamData from "./utilities/getAllTeamData";
-
 // import FormLink from "./components/FormLink/FormLink";
-
-
 
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
   }, []);
 
   return (
-  
       <div className="App">
         <Header />
         
@@ -50,7 +48,7 @@ function App() {
         {/* <FormLink /> */}
   
       </div>
-   
+  
   );
 }
 

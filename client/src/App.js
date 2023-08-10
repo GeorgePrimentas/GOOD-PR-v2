@@ -5,7 +5,11 @@ import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
-// import SlackIconSvg from "./components/Icons/SlackIcon.jsx";
+
+// import FormLink from "./components/FormLink/FormLink";
+
+
+
 
 function App() {
   const [teamData, setTeamData] = useState([]);
@@ -24,19 +28,29 @@ function App() {
   useEffect(() => {
     getAllTeamData();
   }, []);
-  return (
-    <div className="App">
-      <Header />
-      <section className="team-buttons">
-        {teamData.length > 0 &&
-          teamData.map((eachTeam) => (
-            <ClickableCards key={eachTeam.id} teamName={eachTeam.team_name} />
-          ))}
-      </section>
 
-      <Form />
-      
-    </div>
+  return (
+  
+      <div className="App">
+        <Header />
+        
+          <section className="team-buttons">
+            {teamData.length > 0 &&
+              teamData.map((eachTeam) => (
+                <ClickableCards
+                  key={eachTeam.id}
+                  teamName={eachTeam.team_name}
+                />
+              ))}
+          </section>
+
+          <Form />
+       
+
+        {/* <FormLink /> */}
+  
+      </div>
+   
   );
 }
 

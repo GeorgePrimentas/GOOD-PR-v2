@@ -1,0 +1,12 @@
+
+.icons-container {
+    height: 30vh;
+    display: flex;
+    align-items: center;
+}
+
+.project-board-icon{
+    width: 8vh;
+    height: 8vh;
+    background-color: yellowgreen;
+}

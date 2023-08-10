@@ -1,14 +1,29 @@
 table,
 th {
   border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 15px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* #team-info  */
+
+thead tr {
+  background-color: #ffc0cb;
 }
 
 th {
   padding: 5px;
-}
-
-td {
-  border-bottom: 2px dotted black;
 }
 
 .color-square {
@@ -16,11 +31,10 @@ td {
   background: #ffc0cb;
   width: 5px;
   height: 5px;
+  margin-right: 10px;
 }
 
 .name-column {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
 }

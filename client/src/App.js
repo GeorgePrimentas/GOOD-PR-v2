@@ -11,6 +11,7 @@ import ClickableCards from "./components/ClickableCards/ClickableCards";
 
 import CardInfo from "./components/CardInfo/CardInfo";
 
+
 function App() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
 
@@ -37,6 +38,7 @@ function App() {
             <ClickableCards key={eachTeam.id} teamName={eachTeam.teamName} />
           ))}
       </section>
+
       {teamAndMemberData.length > 0 &&
         teamAndMemberData.map((eachInfo) => (
           <CardInfo
@@ -47,6 +49,7 @@ function App() {
         ))}
 
       <Form />
+
     </div>
   );
 }

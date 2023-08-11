@@ -15,8 +15,7 @@ function App() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
 
   function getAllTeamsAndMembersData() {
-    // fetch("https://good-pr-v1-server.onrender.com/api/members")
-    fetch("http://localhost:8000/api/members")
+    fetch("https://good-pr-v1-server.onrender.com/api/members")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

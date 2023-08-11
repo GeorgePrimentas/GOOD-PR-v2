@@ -3,21 +3,26 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
+// import GoogleDocsLogosvg from "./components/Icons/GoogleDocIcon";
+// import GitHubIconSvg from "./components/Icons/GitHubIcon";
+// import getAllTeamData from "./utilities/getAllTeamData";
+// import FormLink from "./components/FormLink/FormLink";
+
 import CardInfo from "./components/CardInfo/CardInfo";
 import TrafficLights from "./components/TrafficLights/TrafficLights";
-// Import other necessary components
 
-function App() {
+
+
+    function App() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
   const [teamData, setTeamData] = useState([]);
-  const [prData, setPrData] = useState([]);
-  const [teamStatuses, setTeamStatuses] = useState([]);
+  const [teamStatuses, setTeamStatuses] = useState([]); // Define the teamStatuses state
 
-  async function fetchPrsData() {
+  async function getAllTeamsAndMembersData() {
     try {
       const response = await fetch("http://localhost:8000/api/members");
       const data = await response.json();
-      setPrData(data);
+      setTeamAndMemberData(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -28,34 +33,29 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setTeamAndMemberData(data);
+        setTeamData(data);
       })
       .catch((error) => console.log(error));
   }
 
   useEffect(() => {
+    getAllTeamsAndMembersData();
     getAllTeamData();
-    fetchPrsData();
+   
   }, []);
 
   return (
     <div className="App">
       <Header />
       <section className="team-buttons">
-        {teamAndMemberData.length > 0 &&
-          teamAndMemberData.map((eachTeam) => (
-            <ClickableCards key={eachTeam.id} teamName={eachTeam.teamName} />
-          ))}
-      </section>
-      <section>
-        {teamAndMemberData.length > 0 &&
+        {/* {teamAndMemberData.length > 0 &&
           teamAndMemberData.map((eachInfo) => (
             <CardInfo
               key={eachInfo.id}
               pr={eachInfo.pullRequestCount}
               allUsers={eachInfo.users}
             />
-          ))}
+          ))} */}
 
         {teamData.length > 0 &&
           teamData.map((eachTeam) => (
@@ -63,13 +63,15 @@ function App() {
               key={eachTeam.id}
               teamName={eachTeam.team_name}
               teamId={eachTeam.id}
-              teamStatuses={teamStatuses}
+              teamStatuses={teamStatuses} // Pass teamStatuses to ClickableCards
             />
           ))}
       </section>
-      {/* Render TrafficLights component with correct props */}
-      <TrafficLights teams={prData} setTeamStatuses={setTeamStatuses} />
-
+      <TrafficLights
+        teams={teamAndMemberData}
+        setTeamStatuses={setTeamStatuses}
+      />{" "}
+      {/* Pass setTeamStatuses to TrafficLights */}
       <Form />
     </div>
   );

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 
 const TrafficLights = ({ teams, setTeamStatuses }) => {
   useEffect(() => {
     console.log("Teams received:", teams); // Log the received teams prop
 
     const calculatedStatuses = teams.map((team) => {
-      console.log("Calculating for team:", team.team_id); // Log the current team being processed
+      console.log("Calculating for team:", team.id); // Log the current team being processed
 
       const totalPullRequests = team.pullRequestCount;
       const sizeOfTeam = Object.keys(team.users).length;
@@ -42,7 +42,7 @@ const TrafficLights = ({ teams, setTeamStatuses }) => {
       console.log("Users with Status:", usersWithStatus); // Log the calculated usersWithStatus array
 
       return {
-        teamId: team.team_id,
+        teamId: team.id,
         anyIntervene,
         allOk,
       };

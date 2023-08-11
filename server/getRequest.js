@@ -13,7 +13,7 @@ const octokit = new Octokit({
 export const getAllTeamMembersPRs = router.get("/members", async (req, res) => {
   try {
     const allTeamsRepos = await getAllTeamRepos();
-    // console.log(allTeamsRepos);
+    console.log(allTeamsRepos);
 
     const results = [];
 
@@ -42,6 +42,8 @@ export const getAllTeamMembersPRs = router.get("/members", async (req, res) => {
       const eachPRCount = await prCount(newResponse);
 
       results.push({
+        id: repo.id,
+        teamName: repo.teamName,
         owner: repo.owner,
         repo: repo.repo,
         pullRequestCount: pullRequestCount,

@@ -13,7 +13,11 @@ import TrafficLights from "./components/TrafficLights/TrafficLights";
 
 
 
-    function App() {
+
+   
+
+function App() {
+
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
   const [teamData, setTeamData] = useState([]);
   const [teamStatuses, setTeamStatuses] = useState([]); // Define the teamStatuses state
@@ -30,6 +34,7 @@ import TrafficLights from "./components/TrafficLights/TrafficLights";
 
   function getAllTeamData() {
     fetch("https://good-pr-v1-server.onrender.com/team")
+
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -67,12 +72,16 @@ import TrafficLights from "./components/TrafficLights/TrafficLights";
             />
           ))}
       </section>
+
       <TrafficLights
         teams={teamAndMemberData}
         setTeamStatuses={setTeamStatuses}
       />{" "}
       {/* Pass setTeamStatuses to TrafficLights */}
+
+
       <Form />
+
     </div>
   );
 }

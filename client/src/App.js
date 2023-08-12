@@ -9,6 +9,7 @@ import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
 // import FormLink from "./components/FormLink/FormLink";
 
+
 import CardInfo from "./components/CardInfo/CardInfo";
 
 
@@ -49,7 +50,7 @@ function App() {
         ))}
 
       <Form />
-
+        
     </div>
   );
 }

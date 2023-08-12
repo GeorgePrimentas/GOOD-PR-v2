@@ -1,4 +1,6 @@
 import SlackIcon from "../../images/Slack-mark.svg";
+import "./SlackIcon.css";
+
 
 
 

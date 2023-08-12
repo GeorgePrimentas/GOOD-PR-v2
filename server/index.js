@@ -9,7 +9,7 @@ const { Pool, PoolClient } = pkg;
 const apiRoot = "/api";
 
 const app = express();
-
+app.use(express.urlencoded({ extended: false }));
 const port = process.env.PORT || 8000;
 
 export let dataBase;

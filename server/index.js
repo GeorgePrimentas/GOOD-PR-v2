@@ -10,6 +10,8 @@ const apiRoot = "/api";
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 const port = process.env.PORT || 8000;
 
 export let dataBase;

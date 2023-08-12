@@ -1,15 +1,15 @@
 
 .icons-container {
-    height: 30vh;
+   
     display: flex;
     align-items: center;
 }
 
 
-.githubrepo-icon{
-    width: 8vh;
-    height: 8vh;
-    background-color: rgb(226, 43, 43);
+.githubrepo-icon, img{
+    width: 22vh;
+    height: 20vh;
+   
 }
 
 

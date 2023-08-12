@@ -2,11 +2,11 @@ import dotenv, { config } from "dotenv";
 dotenv.config();
 config();
 import { dataBase } from "../index.js";
-import { Octokit } from "octokit";
+// import { Octokit } from "octokit";
 
-const octokit = new Octokit({
-  auth: process.env.TOKEN,
-});
+// const octokit = new Octokit({
+//   auth: process.env.TOKEN,
+// });
 
 export async function getAllTeamInfo() {
   try {
@@ -59,8 +59,6 @@ function extractOwnerAndRepoFromUrl(url) {
 
 export async function getAllTeamRepos() {
   try {
-    // let resultTeamData = [];
-
     const result = await dataBase.query(
       "SELECT id, repo_link, team_name FROM fp_teams"
     );
@@ -112,16 +110,18 @@ export async function getTeamAndMemberInfo(teamID) {
       const resultInfo = [];
 
       for (const repo of teamDataInfo) {
-        const response = await octokit.request(
-          `GET /repos/${repo.owner}/${repo.repo}/pulls`,
-          {
-            state: "all",
-          }
-        );
-        const newResponse = response.data.map(
-          (eachUser) => eachUser.user.login
-        );
-        const pullRequestCount = response.data.length;
+        const apiUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}/pulls?state=all`;
+
+        const response = await fetch(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${process.env.TOKEN}`,
+          },
+        });
+        const responseData = await response.json();
+
+        const newResponse = responseData.map((eachUser) => eachUser.user.login);
+        console.log(newResponse);
+        const pullRequestCount = responseData.length;
 
         const prCount = async (users) => {
           const count = {};

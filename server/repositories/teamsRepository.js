@@ -86,6 +86,59 @@ export async function getAllTeamRepos() {
   }
 }
 
+export async function getAllTeamMembersPRs() {
+  try {
+    const allTeamsRepos = await getAllTeamRepos();
+    // console.log(allTeamsRepos);
+
+    const results = [];
+
+    for (const repo of allTeamsRepos) {
+      // const ghURL = `https://api.github.com/search/issues?q=is:pr+repo:${repo.owner}/${repo.repo}/+author:${repo.author}`;
+
+      const apiURL = `https://api.github.com/repos/${repo.owner}/${repo.repo}/pulls?state=all`;
+
+      const response = await fetch(apiURL, {
+        headers: {
+          Authorization: `Bearer ${process.env.TOKEN}`,
+        },
+      });
+
+      const responseData = await response.json();
+
+      const newResponse = responseData.map((eachUser) => eachUser.user.login);
+
+      const pullRequestCount = responseData.length;
+
+      const prCount = async (users) => {
+        const count = {};
+
+        for (let eachName of users) {
+          count[eachName] = count[eachName] ? count[eachName] + 1 : 1;
+        }
+        // console.log(count);
+        return count;
+      };
+
+      const eachPRCount = await prCount(newResponse);
+
+      results.push({
+        id: repo.id,
+        teamName: repo.teamName,
+        owner: repo.owner,
+        repo: repo.repo,
+        pullRequestCount: pullRequestCount,
+        users: eachPRCount,
+      });
+    }
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.error("Error fetching pull requests:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 export async function getTeamAndMemberInfo(teamID) {
   try {
     const getQuery = "SELECT id, repo_link, team_name FROM fp_teams";

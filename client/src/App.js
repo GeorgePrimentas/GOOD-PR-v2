@@ -9,50 +9,49 @@ import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
 // import FormLink from "./components/FormLink/FormLink";
 
-
-
+import CardInfo from "./components/CardInfo/CardInfo";
 
 
 function App() {
-  const [teamData, setTeamData] = useState([]);
+  const [teamAndMemberData, setTeamAndMemberData] = useState([]);
 
-  function getAllTeamData() {
-    fetch("https://good-pr-v1-server.onrender.com/team")
-      // fetch("http://localhost:8000/team")
+  function getAllTeamsAndMembersData() {
+    fetch("https://good-pr-v1-server.onrender.com/api/members")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setTeamData(data);
+        setTeamAndMemberData(data);
       })
       .catch((error) => console.log(error));
   }
 
   useEffect(() => {
-    getAllTeamData();
+    getAllTeamsAndMembersData();
   }, []);
 
   return (
-      <div className="App">
-        <Header />
-        
-          <section className="team-buttons">
-            {teamData.length > 0 &&
-              teamData.map((eachTeam) => (
-                <ClickableCards
-                  key={eachTeam.id}
-                  teamName={eachTeam.team_name}
-                />
-              ))}
-          </section>
 
-          <Form />
-       
+    <div className="App">
+      <Header />
+      <section className="team-buttons">
+        {teamAndMemberData.length > 0 &&
+          teamAndMemberData.map((eachTeam) => (
+            <ClickableCards key={eachTeam.id} teamName={eachTeam.teamName} />
+          ))}
+      </section>
 
-        {/* <FormLink /> */}
-       
-  
-      </div>
-  
+      {teamAndMemberData.length > 0 &&
+        teamAndMemberData.map((eachInfo) => (
+          <CardInfo
+            key={eachInfo.id}
+            pr={eachInfo.pullRequestCount}
+            allUsers={eachInfo.users}
+          />
+        ))}
+
+      <Form />
+
+    </div>
   );
 }
 

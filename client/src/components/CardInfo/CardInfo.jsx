@@ -1,31 +1,29 @@
 import "../CardInfo/CardInfo.css";
 
-const CardInfo = () => {
+const CardInfo = ({ pr, allUsers }) => {
+  // console.log(allUsers);
   return (
-    <div>
-      <h3>Team members</h3>
-      <aside>
-        <table>
-          <thead>
-            <tr>
-              <th>Members</th>
-              <th>Percentage</th>
-              <th>PRs</th>
-              <th>Difference</th>
-            </tr>
-          </thead>
-
-          <tr>
+    <table id="team-info">
+      <thead>
+        <tr>
+          <th>Team Members</th>
+          <th>Pull Requests</th>
+          <th>%</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(allUsers).map(([username, prCount]) => (
+          <tr key={username}>
             <td className="name-column">
-              <div className="color-square"></div>Person 1
+              <div className="color-square"></div>
+              {username}
             </td>
-            <td>30%</td>
-            <td>18</td>
-            <td>0</td>
+            <td>{prCount}</td>
+            <td>{((prCount / pr) * 100).toFixed(1)}%</td>
           </tr>
-        </table>
-      </aside>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

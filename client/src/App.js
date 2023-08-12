@@ -4,39 +4,49 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
+// import GoogleDocsLogosvg from "./components/Icons/GoogleDocIcon";
+// import GitHubIconSvg from "./components/Icons/GitHubIcon";
 // import getAllTeamData from "./utilities/getAllTeamData";
-import ProjectBoardIconSvg from "./components/Icons/ProjectBoardIcon.jsx";
+
 
 function App() {
-  const [teamData, setTeamData] = useState([]);
+  const [teamAndMemberData, setTeamAndMemberData] = useState([]);
 
-  function getAllTeamData() {
-    fetch("https://good-pr-v1-server.onrender.com/team")
-      // fetch("http://localhost:8000/team")
+  function getAllTeamsAndMembersData() {
+    fetch("https://good-pr-v1-server.onrender.com/api/members")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setTeamData(data);
+        setTeamAndMemberData(data);
       })
       .catch((error) => console.log(error));
   }
 
   useEffect(() => {
-    getAllTeamData();
+    getAllTeamsAndMembersData();
   }, []);
+
   return (
     <div className="App">
       <Header />
       <section className="team-buttons">
-        {teamData.length > 0 &&
-          teamData.map((eachTeam) => (
-            <ClickableCards key={eachTeam.id} teamName={eachTeam.team_name} />
+        {teamAndMemberData.length > 0 &&
+          teamAndMemberData.map((eachTeam) => (
+            <ClickableCards key={eachTeam.id} teamName={eachTeam.teamName} />
           ))}
       </section>
 
+      {teamAndMemberData.length > 0 &&
+        teamAndMemberData.map((eachInfo) => (
+          <CardInfo
+            key={eachInfo.id}
+            pr={eachInfo.pullRequestCount}
+            allUsers={eachInfo.users}
+          />
+        ))}
+
       <Form />
-     < ProjectBoardIconSvg />
-      
+
     </div>
   );
 }

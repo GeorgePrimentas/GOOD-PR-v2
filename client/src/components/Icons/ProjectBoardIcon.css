@@ -1,12 +1,14 @@
 
 .icons-container {
-    height: 30vh;
+    /* height: 8vh; */
     display: flex;
     align-items: center;
 }
 
-.project-board-icon{
-    width: 8vh;
-    height: 8vh;
+
+
+.project-board-icon, img{
+    width: 22vh;
+    height: 20vh;
     background-color: yellowgreen;
-}
+} 

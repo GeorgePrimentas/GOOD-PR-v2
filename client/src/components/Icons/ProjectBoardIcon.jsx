@@ -1,4 +1,4 @@
-import ProjectBoardIcon from "../../images/github-project-icon.svg";
+import ProjectBoardIcon from "../../images/Kanban-Board-Project.webp";
 import "./ProjectBoardIcon.css"
 
 

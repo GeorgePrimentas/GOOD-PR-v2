@@ -6,16 +6,14 @@ import ClickableCards from "./components/ClickableCards/ClickableCards";
 import Search from "./components/Search/Search";
 import TrafficLights from "./components/TrafficLights/TrafficLights";
 
-
 function App() {
-
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
   const [teamData, setTeamData] = useState([]);
   const [teamStatuses, setTeamStatuses] = useState([]); // Define the teamStatuses state
 
   async function getAllTeamsAndMembersData() {
     try {
-      const response = await fetch("http://localhost:8000/api/members");
+      const response = await fetch("http://localhost:8000/teamPr"); //Change to render site before merging
       const data = await response.json();
       setTeamAndMemberData(data);
     } catch (error) {
@@ -35,7 +33,6 @@ function App() {
   useEffect(() => {
     getAllTeamsAndMembersData();
     getAllTeamData();
-   
   }, []);
 
   return (
@@ -62,20 +59,13 @@ function App() {
             />
           ))}
       </section>
-
       <TrafficLights
         teams={teamAndMemberData}
         setTeamStatuses={setTeamStatuses}
       />{" "}
       {/* Pass setTeamStatuses to TrafficLights */}
-
-
-
       <Form />
-        
-
     </div>
-
   );
 }
 

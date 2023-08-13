@@ -5,6 +5,7 @@ import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
 
+
 function App() {
 
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
@@ -70,7 +71,7 @@ function App() {
 
 
       <Form />
-
+        
     </div>
 
   );

@@ -3,7 +3,9 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
+import Search from "./components/Search/Search";
 import TrafficLights from "./components/TrafficLights/TrafficLights";
+
 
 function App() {
 
@@ -23,10 +25,8 @@ function App() {
 
   function getAllTeamData() {
     fetch("https://good-pr-v1-server.onrender.com/team")
-
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setTeamData(data);
       })
       .catch((error) => console.log(error));
@@ -41,6 +41,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Search />
       <section className="team-buttons">
         {/* {teamAndMemberData.length > 0 &&
           teamAndMemberData.map((eachInfo) => (
@@ -68,8 +69,11 @@ function App() {
       />{" "}
       {/* Pass setTeamStatuses to TrafficLights */}
 
+
+
       <Form />
         
+
     </div>
 
   );

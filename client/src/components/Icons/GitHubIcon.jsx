@@ -1,8 +1,6 @@
 import GitHubIcon from "../../images/github-mark.svg";
 
 
-
-
 const GitHubIconSvg = () => {
     return (
        < a 

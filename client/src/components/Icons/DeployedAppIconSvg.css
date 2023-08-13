@@ -1,0 +1,12 @@
+
+
+
+.icons-container {
+    display: flex;
+    align-items: center;
+}
+
+.deployed-site-icon img {
+    width: 150px;
+    height: 200px;
+}

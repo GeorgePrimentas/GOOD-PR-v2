@@ -1,0 +1,15 @@
+
+.icons-container {
+   
+    display: flex;
+    align-items: center;
+}
+
+
+.githubrepo-icon, img{
+    width: 22vh;
+    height: 20vh;
+   
+}
+
+

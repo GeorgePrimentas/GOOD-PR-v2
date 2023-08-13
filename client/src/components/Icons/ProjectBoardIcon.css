@@ -1,0 +1,13 @@
+
+.icons-container {
+    /* height: 8vh; */
+    display: flex;
+    align-items: center;
+}
+
+
+
+.project-board-icon, img{
+    width: 200px;
+    height: 200px;
+} 

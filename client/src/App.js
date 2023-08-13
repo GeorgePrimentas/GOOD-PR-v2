@@ -5,11 +5,6 @@ import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 import TrafficLights from "./components/TrafficLights/TrafficLights";
 
-// import GoogleDocsLogosvg from "./components/Icons/GoogleDocIcon";
-// import GitHubIconSvg from "./components/Icons/GitHubIcon";
-// import getAllTeamData from "./utilities/getAllTeamData";
-// import CardInfo from "./components/CardInfo/CardInfo";
-
 function App() {
 
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
@@ -72,7 +67,6 @@ function App() {
         setTeamStatuses={setTeamStatuses}
       />{" "}
       {/* Pass setTeamStatuses to TrafficLights */}
-
 
       <Form />
         

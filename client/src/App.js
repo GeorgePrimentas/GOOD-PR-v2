@@ -6,9 +6,6 @@ import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
 // import FormLink from "./components/FormLink/FormLink";
 
-// import CardInfo from "./components/CardInfo/CardInfo";
-import TrafficLights from "./components/TrafficLights/TrafficLights";
-
 
 function App() {
 
@@ -75,7 +72,7 @@ function App() {
 
 
       <Form />
-
+        
     </div>
 
   );

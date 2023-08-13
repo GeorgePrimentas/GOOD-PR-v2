@@ -2,11 +2,8 @@ import dotenv, { config } from "dotenv";
 dotenv.config();
 config();
 import { dataBase } from "../index.js";
-// import { Octokit } from "octokit";
 
-// const octokit = new Octokit({
-//   auth: process.env.TOKEN,
-// });
+// GETS ALL TEAMS INFORMATION FROM fp_teams TABLE IN DATABASE
 
 export async function getAllTeamInfo() {
   try {
@@ -23,6 +20,8 @@ export async function getAllTeamInfo() {
     return null;
   }
 }
+
+// GETS ALL TEAMS INFORMATION FROM fp_teams AND fp_members TABLES IN DATABASE. SEARCH QUERY INCLUDED
 
 export async function getAllTeamAndMembersInfo(searchTerm) {
   try {
@@ -64,6 +63,7 @@ function extractOwnerAndRepoFromUrl(url) {
 }
 
 // GETS SPECIFIC INFORMATION FROM BOTH fp_teams and fp_members TABLES AND JOINING THEM BY THEIR CORRESPONDING FOREIGN AND PRIMARY KEYS
+
 export async function getAllTeamRepos() {
   try {
     const result = await dataBase.query(
@@ -96,8 +96,6 @@ export async function getAllTeamRepos() {
         }
       });
 
-      // console.log(teamDataInfo);
-
       return teamDataInfo;
     }
   } catch (error) {
@@ -107,6 +105,7 @@ export async function getAllTeamRepos() {
 
 // USES THE INFORMATION OBTAINED FROM THE getAllTeamRepos FUNCTION TO CREATE AN ARRAY OF OBJECTS FOR EACH TEAM
 // THIS INCLUDES THE NUMBER OF PULL REQUESTS DONE BY EACH MEMBER OF THE TEAM BASED ON THEIR GITHUB USERNAME
+
 export async function getAllTeamMembersPRs() {
   try {
     const allTeamsRepos = await getAllTeamRepos();

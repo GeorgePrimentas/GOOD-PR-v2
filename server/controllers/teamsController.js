@@ -1,6 +1,6 @@
 import { getAllTeamInfo } from "../repositories/teamsRepository.js";
 import { getAllTeamAndMembersInfo } from "../repositories/teamsRepository.js";
-import { getAllTeamRepos } from "../repositories/teamsRepository.js";
+import { getAllTeamMembersPRs } from "../repositories/teamsRepository.js";
 import { getTeamAndMemberInfo } from "../repositories/teamsRepository.js";
 
 export async function getTeamData(req, res) {
@@ -25,10 +25,10 @@ export async function getTeamAndMemberData(req, res) {
 }
 
 // (TEAMS CONTROLLER)
-export async function allTeamRepos(req, res) {
+export async function allTeamMembersPRs(req, res) {
   try {
-    const teamRepos = await getAllTeamRepos();
-    return res.status(200).json(teamRepos);
+    const teamsPRs = await getAllTeamMembersPRs();
+    return res.status(200).json(teamsPRs);
   } catch (error) {
     console.error("Error fetching team data:", error);
     return res.status(500).json({ error: "Internal server error" });

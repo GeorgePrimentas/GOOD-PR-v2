@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 import Search from "./components/Search/Search";
+import TrafficLights from "./components/TrafficLights/TrafficLights";
 
 
 function App() {
@@ -69,7 +70,10 @@ function App() {
       {/* Pass setTeamStatuses to TrafficLights */}
 
 
-     <Form />
+
+      <Form />
+        
+
     </div>
 
   );

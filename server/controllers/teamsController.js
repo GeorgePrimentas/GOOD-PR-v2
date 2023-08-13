@@ -3,6 +3,7 @@ import { getAllTeamAndMembersInfo } from "../repositories/teamsRepository.js";
 import { getAllTeamMembersPRs } from "../repositories/teamsRepository.js";
 import { getTeamAndMemberInfo } from "../repositories/teamsRepository.js";
 
+// GETS ALL TEAMS INFORMATION FROM fp_teams TABLE IN DATABASE
 export async function getTeamData(req, res) {
   try {
     const allTeamNames = await getAllTeamInfo();
@@ -13,6 +14,8 @@ export async function getTeamData(req, res) {
   }
 }
 
+// GETS ALL TEAMS INFORMATION FROM fp_teams AND fp_members TABLES IN DATABASE
+// IF THERE IS A SEARCH QUERY IT MODIFIES THE DATA AND PRESENTS THE RESULTS BASED ON THE SEARCH QUERY
 export async function getTeamAndMemberData(req, res) {
   try {
     const searchTerm = req.query.term || "";
@@ -24,7 +27,8 @@ export async function getTeamAndMemberData(req, res) {
   }
 }
 
-// (TEAMS CONTROLLER)
+// RETURNS AN ARRAY OF OBJECTS FOR EACH TEAM
+// THIS INCLUDES THE NUMBER OF PULL REQUESTS DONE BY EACH MEMBER OF THE TEAM BASED ON THEIR GITHUB USERNAME
 export async function allTeamMembersPRs(req, res) {
   try {
     const teamsPRs = await getAllTeamMembersPRs();
@@ -35,6 +39,7 @@ export async function allTeamMembersPRs(req, res) {
   }
 }
 
+// RETURNS A SPECIFIC TEAM INFORMATION DEPENDING ON THE ID
 export async function teamAndMemberInfo(req, res) {
   try {
     const teamID = parseInt(req.params.id);

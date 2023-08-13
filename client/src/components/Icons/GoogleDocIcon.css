@@ -1,0 +1,10 @@
+
+.icons-container {
+    display: flex;
+    align-items: center;
+}
+
+.google-doc-project-brief-icon img {
+    width: 150px;
+    height: 200px;
+}

@@ -3,13 +3,14 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
+import TrafficLights from "./components/TrafficLights/TrafficLights";
 // import GoogleDocsLogosvg from "./components/Icons/GoogleDocIcon";
 // import GitHubIconSvg from "./components/Icons/GitHubIcon";
 // import getAllTeamData from "./utilities/getAllTeamData";
 // import FormLink from "./components/FormLink/FormLink";
 
 // import CardInfo from "./components/CardInfo/CardInfo";
-import TrafficLights from "./components/TrafficLights/TrafficLights";
+
 
 
 

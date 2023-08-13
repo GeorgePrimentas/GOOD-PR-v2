@@ -1,16 +1,24 @@
-import "../ClickableCards/ClickableCards.css";
+import React from "react";
+import "./ClickableCards.css";
 
-const ClickableCards = ({ teamName }) => {
-  // The following if statement will 'slice' the name of the 
-  // Team and keep only the first 20 characters (if it's longer).
-  // It will also add an ellipsis ("...") to convey that the name
-  // displayed has been sliced.
-  if (teamName.length > 20) {
-    teamName = teamName.substring(0, 20) + "...";
-  }
+const ClickableCards = ({ teamName, teamStatuses, teamId }) => {
+  const teamStatus = teamStatuses.find((status) => status.teamId === teamId);
+
+  // console.log("Team Name:", teamName);
+  // console.log("Team Status:", teamStatus);
+  // console.log("Team ID:", teamId);
+  // console.log("Team Statuses:", teamStatuses);
+
+
+  const boxClass = teamStatus?.anyIntervene
+    ? "team-box red"
+    : teamStatus?.allOk
+    ? "team-box green"
+    : "team-box";
+
   return (
     <main>
-      <div className="team-box">{teamName}</div>
+      <div className={boxClass}>{teamName}</div>
     </main>
   );
 };

@@ -4,7 +4,6 @@ import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
 // import getAllTeamData from "./utilities/getAllTeamData";
-// import FormLink from "./components/FormLink/FormLink";
 
 
 function App() {

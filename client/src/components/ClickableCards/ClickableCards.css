@@ -24,6 +24,12 @@ border: 2px solid red;
 background-color: #008000;
 border: 2px solid #008000;
 }
+
+.amber {
+  background-color: #ff7c00;
+  Border: 2px solid #ff7c00;
+}
+
 .team-buttons {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));

@@ -13,7 +13,7 @@ function App() {
 
   async function getAllTeamsAndMembersData() {
     try {
-      const response = await fetch("http://localhost:8000/teamPr"); //Change to render site before merging
+      const response = await fetch("https://good-pr-v1-server.onrender.com/teamPr"); //Change to render site before merging
       const data = await response.json();
       setTeamAndMemberData(data);
     } catch (error) {

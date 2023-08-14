@@ -2,12 +2,8 @@ import dotenv, { config } from "dotenv";
 dotenv.config();
 config();
 import { dataBase } from "../index.js";
-import { Octokit } from "octokit";
 
-const octokit = new Octokit({
-  auth: process.env.TOKEN,
-});
-
+// GETS ALL TEAMS INFORMATION FROM fp_teams TABLE IN DATABASE
 export async function getAllTeamInfo() {
   try {
     const result = await dataBase.query("SELECT * FROM fp_teams");
@@ -24,11 +20,16 @@ export async function getAllTeamInfo() {
   }
 }
 
-export async function getAllTeamAndMembersInfo() {
+// GETS ALL TEAMS INFORMATION FROM fp_teams AND fp_members TABLES IN DATABASE. SEARCH QUERY INCLUDED
+export async function getAllTeamAndMembersInfo(searchTerm) {
   try {
-    const result = await dataBase.query(
-      "SELECT * FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id"
-    );
+    const getQuery =
+      "SELECT * FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id";
+    const searchQuery =
+      "WHERE lower(team_name) LIKE '%' || $1 || '%' OR lower(member_name) LIKE '%' || $1 || '%'";
+    const result = await dataBase.query(getQuery + " " + searchQuery, [
+      searchTerm,
+    ]);
     if (result.rowCount === 0) {
       console.log("No teams available");
     } else {
@@ -57,10 +58,9 @@ function extractOwnerAndRepoFromUrl(url) {
   return { owner, repo };
 }
 
+// GETS SPECIFIC INFORMATION FROM BOTH fp_teams and fp_members TABLES AND JOINING THEM BY THEIR CORRESPONDING FOREIGN AND PRIMARY KEYS
 export async function getAllTeamRepos() {
   try {
-    // let resultTeamData = [];
-
     const result = await dataBase.query(
       "SELECT id, repo_link, team_name FROM fp_teams"
     );
@@ -88,6 +88,59 @@ export async function getAllTeamRepos() {
   }
 }
 
+// USES THE INFORMATION OBTAINED FROM THE getAllTeamRepos FUNCTION TO CREATE AN ARRAY OF OBJECTS FOR EACH TEAM
+// THIS INCLUDES THE NUMBER OF PULL REQUESTS DONE BY EACH MEMBER OF THE TEAM BASED ON THEIR GITHUB USERNAME
+export async function getAllTeamMembersPRs() {
+  try {
+    const allTeamsRepos = await getAllTeamRepos();
+
+    const results = [];
+
+    for (const repo of allTeamsRepos) {
+      const apiURL = `https://api.github.com/repos/${repo.owner}/${repo.repo}/pulls?state=all&per_page=100`;
+
+      const response = await fetch(apiURL, {
+        headers: {
+          Authorization: `Bearer ${process.env.TOKEN}`,
+        },
+      });
+
+      const responseData = await response.json();
+
+      const newResponse = responseData.map((eachUser) => eachUser.user.login);
+
+      const pullRequestCount = responseData.length;
+
+      const prCount = async (users) => {
+        const count = {};
+
+        for (let eachName of users) {
+          count[eachName] = count[eachName] ? count[eachName] + 1 : 1;
+        }
+        // console.log(count);
+        return count;
+      };
+
+      const eachPRCount = await prCount(newResponse);
+
+      results.push({
+        id: repo.id,
+        teamName: repo.teamName,
+        owner: repo.owner,
+        repo: repo.repo,
+        pullRequestCount: pullRequestCount,
+        users: eachPRCount,
+      });
+    }
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.error("Error fetching pull requests:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+// FINDS A SPECIFIC TEAM INFORMATION DEPENDING ON THE ID
 export async function getTeamAndMemberInfo(teamID) {
   try {
     const getQuery = "SELECT id, repo_link, team_name FROM fp_teams";
@@ -112,16 +165,18 @@ export async function getTeamAndMemberInfo(teamID) {
       const resultInfo = [];
 
       for (const repo of teamDataInfo) {
-        const response = await octokit.request(
-          `GET /repos/${repo.owner}/${repo.repo}/pulls`,
-          {
-            state: "all",
-          }
-        );
-        const newResponse = response.data.map(
-          (eachUser) => eachUser.user.login
-        );
-        const pullRequestCount = response.data.length;
+        const apiUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}/pulls?state=all&per_page=100`;
+
+        const response = await fetch(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${process.env.TOKEN}`,
+          },
+        });
+        const responseData = await response.json();
+
+        const newResponse = responseData.map((eachUser) => eachUser.user.login);
+        console.log(newResponse);
+        const pullRequestCount = responseData.length;
 
         const prCount = async (users) => {
           const count = {};

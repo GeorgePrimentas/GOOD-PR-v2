@@ -13,5 +13,3 @@ const SlackIconSvg = () => {
     )
 
 }
-
-export default SlackIconSvg;

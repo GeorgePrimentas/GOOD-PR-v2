@@ -3,8 +3,13 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import ClickableCards from "./components/ClickableCards/ClickableCards";
+
+// import CardInfo from "./components/CardInfo/CardInfo";
 import Search from "./components/Search/Search";
 import TrafficLights from "./components/TrafficLights/TrafficLights";
+
+
+
 
 function App() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
@@ -65,6 +70,9 @@ function App() {
       />{" "}
       {/* Pass setTeamStatuses to TrafficLights */}
       <Form />
+     
+      
+
     </div>
   );
 }

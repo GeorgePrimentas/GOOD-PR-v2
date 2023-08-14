@@ -2,11 +2,8 @@ import dotenv, { config } from "dotenv";
 dotenv.config();
 config();
 import { dataBase } from "../index.js";
-// import { Octokit } from "octokit";
 
-// const octokit = new Octokit({
-//   auth: process.env.TOKEN,
-// });
+// GETS ALL TEAMS INFORMATION FROM fp_teams TABLE IN DATABASE
 
 export async function getAllTeamInfo() {
   try {
@@ -23,6 +20,8 @@ export async function getAllTeamInfo() {
     return null;
   }
 }
+
+// GETS ALL TEAMS INFORMATION FROM fp_teams AND fp_members TABLES IN DATABASE. SEARCH QUERY INCLUDED
 
 export async function getAllTeamAndMembersInfo(searchTerm) {
   try {
@@ -63,27 +62,39 @@ function extractOwnerAndRepoFromUrl(url) {
   return { owner, repo };
 }
 
+// GETS SPECIFIC INFORMATION FROM BOTH fp_teams and fp_members TABLES AND JOINING THEM BY THEIR CORRESPONDING FOREIGN AND PRIMARY KEYS
+
 export async function getAllTeamRepos() {
   try {
     const result = await dataBase.query(
-      "SELECT id, repo_link, team_name FROM fp_teams"
+      "SELECT fpt.id, fpt.repo_link, fpt.team_name, fpm.github_username FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id"
     );
     if (result.rowCount === 0) {
       console.log("No teams available");
     } else {
-      const teamDataInfo = result.rows.map((eachTeamDataInfo) => {
+      const teamDataInfo = [];
+
+      result.rows.forEach((eachTeamDataInfo) => {
         const { owner, repo } = extractOwnerAndRepoFromUrl(
           eachTeamDataInfo.repo_link
         );
-        return {
-          id: eachTeamDataInfo.id,
-          teamName: eachTeamDataInfo.team_name,
-          owner: owner,
-          repo: repo,
-        };
-      });
 
-      // console.log(teamDataInfo);
+        const existingTeam = teamDataInfo.find(
+          (team) => team.id === eachTeamDataInfo.id
+        );
+
+        if (existingTeam) {
+          existingTeam.authors.push(eachTeamDataInfo.github_username);
+        } else {
+          teamDataInfo.push({
+            id: eachTeamDataInfo.id,
+            teamName: eachTeamDataInfo.team_name,
+            owner: owner,
+            repository: repo,
+            authors: [eachTeamDataInfo.github_username],
+          });
+        }
+      });
 
       return teamDataInfo;
     }
@@ -92,95 +103,40 @@ export async function getAllTeamRepos() {
   }
 }
 
+// USES THE INFORMATION OBTAINED FROM THE getAllTeamRepos FUNCTION TO CREATE AN ARRAY OF OBJECTS FOR EACH TEAM
+// THIS INCLUDES THE NUMBER OF PULL REQUESTS DONE BY EACH MEMBER OF THE TEAM BASED ON THEIR GITHUB USERNAME
+
 export async function getAllTeamMembersPRs() {
   try {
     const allTeamsRepos = await getAllTeamRepos();
-    // console.log(allTeamsRepos);
 
     const results = [];
 
     for (const repo of allTeamsRepos) {
-      // const ghURL = `https://api.github.com/search/issues?q=is:pr+repo:${repo.owner}/${repo.repo}/+author:${repo.author}`;
-
-      const apiURL = `https://api.github.com/repos/${repo.owner}/${repo.repo}/pulls?state=all`;
-
-      const response = await fetch(apiURL, {
-        headers: {
-          Authorization: `Bearer ${process.env.TOKEN}`,
-        },
-      });
-
-      const responseData = await response.json();
-
-      const newResponse = responseData.map((eachUser) => eachUser.user.login);
-
-      const pullRequestCount = responseData.length;
-
-      const prCount = async (users) => {
-        const count = {};
-
-        for (let eachName of users) {
-          count[eachName] = count[eachName] ? count[eachName] + 1 : 1;
-        }
-        // console.log(count);
-        return count;
-      };
-
-      const eachPRCount = await prCount(newResponse);
-
-      results.push({
+      const startingTeamInfo = {
         id: repo.id,
         teamName: repo.teamName,
         owner: repo.owner,
-        repo: repo.repo,
-        pullRequestCount: pullRequestCount,
-        users: eachPRCount,
-      });
-    }
-    console.log(results);
-    return results;
-  } catch (error) {
-    console.error("Error fetching pull requests:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-}
+        repo: repo.repository,
+        pullRequestCount: 0,
+        users: {},
+      };
 
-export async function getTeamAndMemberInfo(teamID) {
-  try {
-    const getQuery = "SELECT id, repo_link, team_name FROM fp_teams";
-    const idQuery = "WHERE id = $1";
+      for (const author of repo.authors) {
+        const ghURL = `https://api.github.com/search/issues?q=is:pr+repo:${repo.owner}/${repo.repository}+author:${author}`;
 
-    const result = await dataBase.query(getQuery + " " + idQuery, [teamID]);
-    if (result.rowCount === 0) {
-      console.log("No teams available");
-    } else {
-      const teamDataInfo = result.rows.map((eachTeamDataInfo) => {
-        const { owner, repo } = extractOwnerAndRepoFromUrl(
-          eachTeamDataInfo.repo_link
-        );
-        return {
-          id: eachTeamDataInfo.id,
-          teamName: eachTeamDataInfo.team_name,
-          owner: owner,
-          repo: repo,
-        };
-      });
-
-      const resultInfo = [];
-
-      for (const repo of teamDataInfo) {
-        const apiUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}/pulls?state=all`;
-
-        const response = await fetch(apiUrl, {
+        const response = await fetch(ghURL, {
           headers: {
             Authorization: `Bearer ${process.env.TOKEN}`,
           },
         });
         const responseData = await response.json();
 
-        const newResponse = responseData.map((eachUser) => eachUser.user.login);
-        console.log(newResponse);
-        const pullRequestCount = responseData.length;
+        const newResponse = responseData.items.map(
+          (eachUser) => eachUser.user.login
+        );
+
+        const pullRequestCount = responseData.items.length;
 
         const prCount = async (users) => {
           const count = {};
@@ -188,23 +144,122 @@ export async function getTeamAndMemberInfo(teamID) {
           for (let eachName of users) {
             count[eachName] = count[eachName] ? count[eachName] + 1 : 1;
           }
-          // console.log(count);
           return count;
         };
 
         const eachPRCount = await prCount(newResponse);
 
-        resultInfo.push({
+        startingTeamInfo.pullRequestCount =
+          startingTeamInfo.pullRequestCount + pullRequestCount;
+
+        for (const user in eachPRCount) {
+          if (startingTeamInfo.users[user]) {
+            startingTeamInfo.users[user] += eachPRCount[user];
+          } else {
+            startingTeamInfo.users[user] = eachPRCount[user];
+          }
+        }
+      }
+
+      results.push(startingTeamInfo);
+    }
+
+    return results;
+  } catch (error) {
+    console.error("Error fetching pull requests:", error);
+    throw error;
+  }
+}
+
+// FINDS A SPECIFIC TEAM INFORMATION DEPENDING ON THE ID
+export async function getTeamAndMemberInfo(teamID) {
+  try {
+    const getQuery =
+      "SELECT fpt.id, fpt.repo_link, fpt.team_name, fpm.github_username FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id";
+    const idQuery = "WHERE fpt.id = $1";
+
+    const result = await dataBase.query(getQuery + " " + idQuery, [teamID]);
+    if (result.rowCount === 0) {
+      console.log("No teams available");
+    } else {
+      const teamDataInfo = [];
+
+      result.rows.map((eachTeamDataInfo) => {
+        const { owner, repo } = extractOwnerAndRepoFromUrl(
+          eachTeamDataInfo.repo_link
+        );
+
+        const existingTeam = teamDataInfo.find(
+          (team) => team.id === eachTeamDataInfo.id
+        );
+
+        if (existingTeam) {
+          existingTeam.authors.push(eachTeamDataInfo.github_username);
+        } else {
+          teamDataInfo.push({
+            id: eachTeamDataInfo.id,
+            teamName: eachTeamDataInfo.team_name,
+            owner: owner,
+            repository: repo,
+            authors: [eachTeamDataInfo.github_username],
+          });
+        }
+      });
+
+      const resultInfo = [];
+
+      for (const repo of teamDataInfo) {
+        const startingTeamInfo = {
           id: repo.id,
           teamName: repo.teamName,
           owner: repo.owner,
-          repo: repo.repo,
-          pullRequestCount: pullRequestCount,
-          users: eachPRCount,
-        });
+          repo: repo.repository,
+          pullRequestCount: 0,
+          users: {},
+        };
+
+        for (const author of repo.authors) {
+          const ghURL = `https://api.github.com/search/issues?q=is:pr+repo:${repo.owner}/${repo.repository}+author:${author}`;
+
+          const response = await fetch(ghURL, {
+            headers: {
+              Authorization: `Bearer ${process.env.TOKEN}`,
+            },
+          });
+          const responseData = await response.json();
+
+          const newResponse = responseData.items.map(
+            (eachUser) => eachUser.user.login
+          );
+
+          const pullRequestCount = responseData.items.length;
+
+          const prCount = async (users) => {
+            const count = {};
+
+            for (let eachName of users) {
+              count[eachName] = count[eachName] ? count[eachName] + 1 : 1;
+            }
+            return count;
+          };
+
+          const eachPRCount = await prCount(newResponse);
+
+          startingTeamInfo.pullRequestCount =
+            startingTeamInfo.pullRequestCount + pullRequestCount;
+
+          for (const user in eachPRCount) {
+            if (startingTeamInfo.users[user]) {
+              startingTeamInfo.users[user] += eachPRCount[user];
+            } else {
+              startingTeamInfo.users[user] = eachPRCount[user];
+            }
+          }
+        }
+
+        resultInfo.push(startingTeamInfo);
       }
 
-      console.log(resultInfo);
       return resultInfo;
     }
   } catch (error) {

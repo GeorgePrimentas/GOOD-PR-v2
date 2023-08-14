@@ -35,7 +35,7 @@ const Search = ({ teamData }) => {
         />
       </form>
       {loadingTeamData ? (
-        <p>Please wait while we load quotes</p>
+        <p>Please wait while we load team information</p>
       ) : (
         <div>
           {" "}

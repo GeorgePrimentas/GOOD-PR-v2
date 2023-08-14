@@ -22,7 +22,7 @@
 .team-info {
   display: grid;
   grid-template-columns: 11.5em 11.5em;
-  grid-template-rows: 6em 6em;
+  grid-template-rows: 6em;
   column-gap: 5px;
   row-gap: 5px;
   margin: 10px;

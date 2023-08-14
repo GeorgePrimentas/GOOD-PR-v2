@@ -1,0 +1,12 @@
+
+.icons-container {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    height: 100px;
+}
+
+img{
+    height: 70px;
+    width: 70px;
+}

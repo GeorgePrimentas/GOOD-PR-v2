@@ -7,7 +7,7 @@ const DeployedAppIconSvg = () => {
     return (
        < a 
        className="deployed-site-icon" 
-        href="https://github.com/Gayle-Thompson-Igwebike/GOOD-PR-v1">
+        href="https://good-pr-v1-server.onrender.com">
        <img src={DeployedAppIcon} alt="desktop icon"  /> 
        </a>
     )

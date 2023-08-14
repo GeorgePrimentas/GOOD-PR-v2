@@ -7,17 +7,18 @@ import GitHubIconSvg from './GitHubIconSvg';
 import GoogleDocsLogosvg from './GoogleDocIconSvg';
 
 
-
-
 const AllIconsContainer = () => {
 return (
+
 <div className="icons-container">
-    <DeployedAppIconSvg/>
-    <SlackIconSvg />
+
     <GitHubIconSvg />
     <GoogleDocsLogosvg />
-   
+    <SlackIconSvg />
+    <DeployedAppIconSvg/>
+ 
 </div>
+
 );
 }
 

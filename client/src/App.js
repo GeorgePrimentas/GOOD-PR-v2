@@ -9,8 +9,6 @@ import Search from "./components/Search/Search";
 import TrafficLights from "./components/TrafficLights/TrafficLights";
 
 
-
-
 function App() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
   const [teamData, setTeamData] = useState([]);

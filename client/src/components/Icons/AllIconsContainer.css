@@ -1,0 +1,14 @@
+
+.icons-container {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    height: 100px;
+}
+
+img{
+    height: 60px;
+    width: 60px;
+    margin: 5px;
+}
+

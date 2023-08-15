@@ -3,6 +3,9 @@ import "./ClickableCards.css";
 
 const ClickableCards = ({ teamName, teamStatuses, teamId }) => {
   const teamStatus = teamStatuses.find((status) => status.teamId === teamId);
+  if (!teamStatuses || teamStatuses.length === 0) {
+    return null
+  };
 
   // console.log("Team Name:", teamName);
   // console.log("Team Status:", teamStatus);

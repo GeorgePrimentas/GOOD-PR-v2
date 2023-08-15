@@ -1,12 +1,5 @@
 
-.icons-container {
-    /* height: 8vh; */
-    display: flex;
-    align-items: center;
-}
-
-
   .slack-icon, img {
-    width: 150px;
-    height: 200px;
+    width: 60px;
+    height: 60px;
 }

@@ -24,12 +24,13 @@ export async function getAllTeamInfo() {
 // GETS ALL TEAMS INFORMATION FROM fp_teams AND fp_members TABLES IN DATABASE. SEARCH QUERY INCLUDED
 export async function getAllTeamAndMembersInfo(searchTerm) {
   try {
+    const lowerSearchTerm = searchTerm.toLowerCase();
     const getQuery =
       "SELECT * FROM fp_teams fpt INNER JOIN fp_members fpm ON fpt.id = fpm.team_id";
     const searchQuery =
       "WHERE lower(fpt.team_name) LIKE '%' || $1 || '%' OR lower(fpm.member_name) LIKE '%' || $1 || '%'";
     const result = await dataBase.query(getQuery + " " + searchQuery, [
-      searchTerm,
+     lowerSearchTerm
     ]);
     if (result.rowCount === 0) {
       console.log("No teams available");

@@ -1,7 +1,6 @@
-import "./Home.css";
+// import "./Home.css";
 import React, { useState, useEffect } from "react";
-import Header from "../Header/Header";
-import Form from "../Form/Form";
+import FormLink from "../FormLink/FormLink"
 import ClickableCards from "../ClickableCards/ClickableCards";
 import Search from "../Search/Search";
 import TrafficLights from "../TrafficLights/TrafficLights";
@@ -46,17 +45,8 @@ function Home() {
 
   return (
     <div className="App">
-      <Header />
-      <Search />
       <section className="team-buttons">
-        {/* {teamAndMemberData.length > 0 &&
-          teamAndMemberData.map((eachInfo) => (
-            <CardInfo
-              key={eachInfo.id}
-              pr={eachInfo.pullRequestCount}
-              allUsers={eachInfo.users}
-            />
-          ))} */}
+        
 
         {teamData.length > 0 &&
           teamData.map((eachTeam) => (
@@ -77,9 +67,9 @@ function Home() {
         teams={teamAndMemberData}
         setTeamStatuses={setTeamStatuses}
       />{" "}
-      {/* Pass setTeamStatuses to TrafficLights */}
-      
-      <Form />
+     
+      <FormLink />
+      <Search />
     </div>
   );
 }

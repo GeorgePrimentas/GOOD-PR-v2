@@ -13,8 +13,8 @@ const TrafficLights = ({ teams, setTeamStatuses }) => {
       const minimumContribution = 100 / (sizeOfTeam + 1);
       const maximumContribution = 100 / (sizeOfTeam - 1);
       // Amber range
-      const minimumAmberContribution = 100 / (sizeOfTeam + 1);
-      const maximumAmberContribution = 100 / (sizeOfTeam - 1);
+      const minimumAmberContribution = 100 / (sizeOfTeam + 1 - 0.5);
+      const maximumAmberContribution = 100 / (sizeOfTeam - 1 + 0.5);
 
       const usersWithStatus = Object.entries(team.users).map(
         ([user, prCount]) => {

@@ -5,6 +5,7 @@ import DeployedAppIconSvg from './DeployedAppIconSvg';
 import SlackIconSvg from './SlackIconSvg';
 import GitHubIconSvg from './GitHubIconSvg';
 import GoogleDocsLogosvg from './GoogleDocIconSvg';
+import ProjectBoardIconSvg from './ProjectBoardIconSvg';
 
 
 
@@ -17,7 +18,7 @@ return (
     <GoogleDocsLogosvg />
     <SlackIconSvg />
     <DeployedAppIconSvg/>
-   
+    <ProjectBoardIconSvg/>
  
 </div>
 

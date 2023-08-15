@@ -20,11 +20,22 @@ const TrafficLights = ({ teams, setTeamStatuses }) => {
         ([user, prCount]) => {
           const percentage = (prCount / totalPullRequests) * 100;
           const contribution = percentage.toFixed(2);
-          const status =
-            contribution >= minimumContribution &&
-            contribution <= maximumContribution
-              ? "OK"
-              : "INTERVENE";
+          // Old code
+          // const status =
+          //   contribution >= minimumContribution &&
+          //   contribution <= maximumContribution
+          //     ? "OK"
+          //     : "INTERVENE";
+
+          // New code
+            const status =
+              contribution < minimumContribution ||
+              contribution > maximumContribution
+                ? "INTERVENE"
+                : contribution >= minimumAmberContribution &&
+                  contribution <= maximumAmberContribution
+                ? "AMBER"
+                : "OK";
 
           return {
             user,
@@ -35,18 +46,31 @@ const TrafficLights = ({ teams, setTeamStatuses }) => {
         }
       );
 
+      // Old code
+      // const anyIntervene = usersWithStatus.some(
+      //   (user) => user.status === "INTERVENE"
+      // );
+      // const allOk = !usersWithStatus.some(
+      //   (user) => user.status === "INTERVENE"
+      // );
+
+      // New code (lines 58-66)
       const anyIntervene = usersWithStatus.some(
         (user) => user.status === "INTERVENE"
       );
-      const allOk = !usersWithStatus.some(
-        (user) => user.status === "INTERVENE"
+
+      const anyAmber = usersWithStatus.some(
+        (user) => user.status === "AMBER"
       );
+
+      const allOk = !anyIntervene && !anyAmber;
 
       console.log("Users with Status:", usersWithStatus); // Log the calculated usersWithStatus array
 
       return {
         teamId: team.id,
         anyIntervene,
+        anyAmber,
         allOk,
       };
     });

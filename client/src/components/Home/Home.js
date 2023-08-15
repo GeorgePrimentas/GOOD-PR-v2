@@ -21,7 +21,9 @@ function Home() {
 
   async function getAllTeamsAndMembersData() {
     try {
-      const response = await fetch("http://localhost:8000/teamPr"); //Change to render site before merging
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+      ); //Change to render site before merging
       const data = await response.json();
       setTeamAndMemberData(data);
     } catch (error) {
@@ -30,7 +32,7 @@ function Home() {
   }
 
   function getAllTeamData() {
-    fetch("http://localhost:8000/team")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/team`)
       .then((response) => response.json())
       .then((data) => {
         setTeamData(data);

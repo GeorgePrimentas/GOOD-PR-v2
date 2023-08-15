@@ -12,7 +12,9 @@ const CardInfo = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:8000/teamPr");
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+        );
         const data = await response.json();
 
         const selectedTeam = data.find((team) => team.id === numericId);

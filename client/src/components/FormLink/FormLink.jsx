@@ -3,17 +3,17 @@ import "./FormLink.css";
 import { Link } from "react-router-dom";
 
 const TeamNotRegistered = () => {
-  const formLinkStyle = {
-    backgroundColor: "red",
-    color: "white",
-    textDecoration: "none",
-    padding: "5px",
-    borderRadius: "3px",
-  };
+  // const formLinkStyle = {
+  //   backgroundColor: "red",
+  //   color: "white",
+  //   textDecoration: "none",
+  //   padding: "5px",
+  //   borderRadius: "3px",
+  // };
 
   return (
     <div>
-      <Link to="/form" style={formLinkStyle} className="formLink">
+      <Link to="/form" className="formLink">
         Can't find your team? Click here to register.
       </Link>
 

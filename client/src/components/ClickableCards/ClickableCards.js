@@ -15,6 +15,8 @@ const ClickableCards = ({ teamName, teamStatuses, teamId }) => {
 
   const boxClass = teamStatus?.anyIntervene
     ? "team-box red"
+    : teamStatus?.anyAmber
+    ? "team-box amber"
     : teamStatus?.allOk
     ? "team-box green"
     : "team-box";

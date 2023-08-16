@@ -1,10 +1,11 @@
 // import "./Home.css";
 import React, { useState, useEffect } from "react";
-import FormLink from "../FormLink/FormLink"
+import FormLink from "../FormLink/FormLink";
 import ClickableCards from "../ClickableCards/ClickableCards";
 import Search from "../Search/Search";
 import TrafficLights from "../TrafficLights/TrafficLights";
 import { Link, useNavigate } from "react-router-dom";
+import WelcomeMessage from "../WelcomeMessage/WelcomeMessage";
 
 function Home() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
@@ -47,9 +48,8 @@ function Home() {
 
   return (
     <div className="App">
+      <WelcomeMessage />
       <section className="team-buttons">
-        
-
         {teamData.length > 0 &&
           teamData.map((eachTeam) => (
             <Link
@@ -69,7 +69,6 @@ function Home() {
         teams={teamAndMemberData}
         setTeamStatuses={setTeamStatuses}
       />{" "}
-     
       <FormLink />
       <Search />
     </div>

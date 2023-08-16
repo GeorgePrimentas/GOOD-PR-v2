@@ -1,3 +1,5 @@
+import "./WelcomeMessage.css";
+
 function WelcomeMessage() {
   return (
     <section className="welcomeArea">

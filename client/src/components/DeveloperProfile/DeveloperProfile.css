@@ -1,0 +1,30 @@
+
+.person-card {
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.person-name {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.person-role {
+  margin: 5px 0;
+}
+
+.person-github a,
+.person-linkedin a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.person-github a:hover,
+.person-linkedin a:hover {
+  text-decoration: underline;
+}

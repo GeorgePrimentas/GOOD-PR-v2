@@ -5,9 +5,10 @@ function WelcomeMessage() {
     <section className="welcomeArea">
       <h2>Welcome to Good PR</h2>
       <p className="welcome-msg">
-        A tracker that helps you visualize the contribution of team members at
-        Code Your Future Final Projects by tracking the number of Pull Requests
-        made.
+        A Code Your Future Final Project Pull Request (PR) Tracker app, which
+        allows you to easily visualize each team member’s contributions to their
+        final project, by accurately monitoring the number of Pull Requests they
+        have made.
       </p>
     </section>
   );

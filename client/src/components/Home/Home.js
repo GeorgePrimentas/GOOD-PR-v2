@@ -6,10 +6,13 @@ import Search from "../Search/Search";
 import TrafficLights from "../TrafficLights/TrafficLights";
 import { Link, useNavigate } from "react-router-dom";
 
+
+
 function Home() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
   const [teamData, setTeamData] = useState([]);
   const [teamStatuses, setTeamStatuses] = useState([]); // Define the teamStatuses state
+  
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -40,16 +43,16 @@ function Home() {
       .catch((error) => console.log(error));
   }
 
+
   useEffect(() => {
     getAllTeamsAndMembersData();
     getAllTeamData();
+   
   }, []);
 
   return (
     <div className="App">
       <section className="team-buttons">
-        
-
         {teamData.length > 0 &&
           teamData.map((eachTeam) => (
             <Link
@@ -65,11 +68,11 @@ function Home() {
             </Link>
           ))}
       </section>
+      
       <TrafficLights
         teams={teamAndMemberData}
         setTeamStatuses={setTeamStatuses}
       />{" "}
-     
       <FormLink />
       <Search />
     </div>

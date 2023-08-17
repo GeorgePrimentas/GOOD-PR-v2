@@ -1,5 +1,6 @@
 import React from "react";
 import DeveloperProfile from "../DeveloperProfile/DeveloperProfile";
+import "./TeamAlphaDetails.css";
 
 const teamAlphaData = [
   {
@@ -30,8 +31,8 @@ const teamAlphaData = [
 
 const TeamAlphaDetails = () => {
   return (
-    <div>
-      <h1>Team Alpha</h1>
+    <div className="person-card-container">
+      <h1 className="centered-heading">Team Alpha</h1>
       <div className="team-alpha-cards">
         {teamAlphaData.map((person, index) => (
           <DeveloperProfile key={index} person={person} />

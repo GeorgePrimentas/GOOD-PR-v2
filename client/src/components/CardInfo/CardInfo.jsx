@@ -13,7 +13,8 @@ const CardInfo = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+          // `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+                 `http://localhost:8000/teamPr`
         );
         const data = await response.json();
 

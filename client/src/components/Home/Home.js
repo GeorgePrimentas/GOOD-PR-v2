@@ -1,10 +1,11 @@
 // import "./Home.css";
 import React, { useState, useEffect } from "react";
-import FormLink from "../FormLink/FormLink"
+import FormLink from "../FormLink/FormLink";
 import ClickableCards from "../ClickableCards/ClickableCards";
 import Search from "../Search/Search";
 import TrafficLights from "../TrafficLights/TrafficLights";
 import { Link, useNavigate } from "react-router-dom";
+import WelcomeMessage from "../WelcomeMessage/WelcomeMessage";
 
 
 
@@ -25,7 +26,8 @@ function Home() {
   async function getAllTeamsAndMembersData() {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+        // `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+       `http://localhost:8000/teamPr`
       ); //Change to render site before merging
       const data = await response.json();
       setTeamAndMemberData(data);
@@ -35,7 +37,8 @@ function Home() {
   }
 
   function getAllTeamData() {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/team`)
+    // fetch(`${process.env.REACT_APP_BACKEND_URL}/team`)
+        fetch(`http://localhost:8000/team`)
       .then((response) => response.json())
       .then((data) => {
         setTeamData(data);
@@ -52,6 +55,7 @@ function Home() {
 
   return (
     <div className="App">
+      <WelcomeMessage />
       <section className="team-buttons">
         {teamData.length > 0 &&
           teamData.map((eachTeam) => (
@@ -65,6 +69,7 @@ function Home() {
                 teamId={eachTeam.id}
                 teamStatuses={teamStatuses} // Pass teamStatuses to ClickableCards
               />
+
             </Link>
           ))}
       </section>

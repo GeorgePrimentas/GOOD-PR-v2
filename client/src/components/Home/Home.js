@@ -7,10 +7,13 @@ import TrafficLights from "../TrafficLights/TrafficLights";
 import { Link, useNavigate } from "react-router-dom";
 import WelcomeMessage from "../WelcomeMessage/WelcomeMessage";
 
+
+
 function Home() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
   const [teamData, setTeamData] = useState([]);
   const [teamStatuses, setTeamStatuses] = useState([]); // Define the teamStatuses state
+  
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -41,9 +44,11 @@ function Home() {
       .catch((error) => console.log(error));
   }
 
+
   useEffect(() => {
     getAllTeamsAndMembersData();
     getAllTeamData();
+   
   }, []);
 
   return (
@@ -66,6 +71,7 @@ function Home() {
             </Link>
           ))}
       </section>
+      
       <TrafficLights
         teams={teamAndMemberData}
         setTeamStatuses={setTeamStatuses}

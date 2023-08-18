@@ -56,7 +56,7 @@ const HundredSquareChart = ({ data }) => {
       .range([0, waffleSize])
       .padding(0.1);
 
-    // Sequence of the colours used for the squares for each trainee
+    // Sequence of the colors used for the squares for each trainee
     const colorScale = d3.scaleOrdinal()
       .domain(d3.range(processedData.length))
       .range(["#cc0099", "#ff99ff", "#000099", "#3399ff", "#ff6600", "#ffcc99"]);

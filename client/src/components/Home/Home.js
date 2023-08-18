@@ -23,7 +23,8 @@ function Home() {
   async function getAllTeamsAndMembersData() {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+        // `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+       `http://localhost:8000/teamPr`
       ); //Change to render site before merging
       const data = await response.json();
       setTeamAndMemberData(data);
@@ -33,7 +34,8 @@ function Home() {
   }
 
   function getAllTeamData() {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/team`)
+    // fetch(`${process.env.REACT_APP_BACKEND_URL}/team`)
+        fetch(`http://localhost:8000/team`)
       .then((response) => response.json())
       .then((data) => {
         setTeamData(data);
@@ -62,6 +64,7 @@ function Home() {
                 teamId={eachTeam.id}
                 teamStatuses={teamStatuses} // Pass teamStatuses to ClickableCards
               />
+
             </Link>
           ))}
       </section>

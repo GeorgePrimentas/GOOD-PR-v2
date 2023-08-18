@@ -5,47 +5,12 @@ import ClickableCards from "../ClickableCards/ClickableCards";
 import Search from "../Search/Search";
 import TrafficLights from "../TrafficLights/TrafficLights";
 import { Link, useNavigate } from "react-router-dom";
-import HundredSquareChart from "../HundredSquareChart/HundredSquareChart";
+ 
 function Home() {
   const [teamAndMemberData, setTeamAndMemberData] = useState([]);
   const [teamData, setTeamData] = useState([]);
   const [teamStatuses, setTeamStatuses] = useState([]); // Define the teamStatuses state
   const navigate = useNavigate();
-
-  // const data = ["Meysam-Arshadi", 9, "SanaAsaf", 8, "OlushoreOdude", 8, "ali1373107", 5]
-// const rawData = [{
-//   "id": 31,
-//   "teamName": "NYF",
-//   "owner": "OlushoreOdude",
-//   "repo": "nyf-job-board",
-//   "pullRequestCount": 30,
-//   "users": {
-//     "Meysam-Arshadi": 9,
-//     "SanaAsaf": 8,
-//     "OlushoreOdude": 8,
-//     "ali1373107": 5
-//   }
-
-  const rawData = [{
-  "id": 31,
-  "teamName": "NYF",
-  "owner": "OlushoreOdude",
-  "repo": "nyf-job-board",
-  "pullRequestCount": 30,
-  "users": {
-    "Meysam-Arshadi": 9,
-    "SanaAsaf": 8,
-    "OlushoreOdude": 8,
-    "ali1373107": 5
-  }
-
-}];
-
-const data = [];
-const users = rawData[0].users;
-for (const user in users) {
-  data.push(user, users[user]);
-}
 
   const handleClick = (id) => {
     // Scroll to the top of the page when the link is clicked
@@ -109,7 +74,6 @@ for (const user in users) {
       />{" "}
      
       <FormLink />
-      <HundredSquareChart data={data}/>
       <Search />
     </div>
   );

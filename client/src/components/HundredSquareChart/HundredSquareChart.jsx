@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import './HundredSquareChart.css';
 
 const HundredSquareChart = ({ data }) => {
+  
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -100,7 +101,6 @@ const HundredSquareChart = ({ data }) => {
 
   return (
     <div>
-      <p>{JSON.stringify(data)}</p>
       <svg ref={svgRef} className="hundred-square-chart"></svg>
     </div>
   );

@@ -7,19 +7,24 @@ const DeveloperProfile = ({ person }) => {
       <p className="person-role"> Role: {person.role}</p>
       <p className="person-github">
         GitHub:{" "}
-        <a href={`https://github.com/${person.githubUsername}`}>
+        <a
+          href={`https://github.com/${person.githubUsername}`}
+          className="links"
+        >
           {person.githubUsername}
         </a>
       </p>
       <p className="person-linkedin">
         LinkedIn:{" "}
-        <a href={`https://www.linkedin.com/in/${person.linkedinUsername}`}>
+        <a
+          href={`https://www.linkedin.com/in/${person.linkedinUsername}`}
+          className="links"
+        >
           {person.linkedinUsername}
         </a>
       </p>
     </div>
   );
-  
 };
 
 export default DeveloperProfile;

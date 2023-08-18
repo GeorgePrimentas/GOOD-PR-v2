@@ -1,7 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TeamCard.css';
 import CardInfo from '../CardInfo/CardInfo';
-// import ClickableCards from '../ClickableCards/ClickableCards';
 import HundredSquareChart from '../HundredSquareChart/HundredSquareChart';
 import { useParams } from 'react-router-dom';
 import AllIconsContainer from '../Icons/AllIconsContainer';
@@ -16,7 +15,7 @@ const [rawData, setRawData] = useState([]);
     async function fetchRawData() {
       try {
         const response = await fetch(
-          `http://localhost:8000/teamPr`
+          `${process.env.REACT_APP_BACKEND_URL}/teamPr`
         );
         const rawData = await response.json();
         setRawData(rawData);
@@ -28,10 +27,8 @@ const [rawData, setRawData] = useState([]);
     fetchRawData();
   }, []);
 
-  // // For the Clickable card
-  // const teamIndex = rawData.findIndex(team => team.id === numericId);
-
-  const usersData = rawData.find(team => team.id === numericId)?.users || {};
+  const team = rawData.find((team) => team.id === numericId);
+  const usersData = team?.users || {};
 
   const data = [];
   for (const user in usersData) {
@@ -41,12 +38,14 @@ const [rawData, setRawData] = useState([]);
   return (
     <div>
       <div className="card-top">
-        {/* <ClickableCards id={teamIndex} /> */}
-        <div className = "small-team-btn"><p>Team</p></div>
+        <div className="small-team-btn">
+          <p>{team ? team.teamName : "Team"}</p>
+        </div>
         <HundredSquareChart data={ data } />
       </div>
       <CardInfo numericId={numericId} />
       <AllIconsContainer />
+      <div class="spacer"></div>
     </div>
   );
 }

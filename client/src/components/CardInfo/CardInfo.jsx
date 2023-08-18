@@ -8,13 +8,14 @@ const CardInfo = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const numericId = parseInt(id, 10);
+    // Total number of Team Members
+  const totalTeamMembers = allUsers.length;
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch(
-          // `${process.env.REACT_APP_BACKEND_URL}/teamPr`
-                 `http://localhost:8000/teamPr`
+          `${process.env.REACT_APP_BACKEND_URL}/teamPr`
         );
         const data = await response.json();
 
@@ -53,6 +54,7 @@ const CardInfo = () => {
         <tr>
           <th>Team Members</th>
           <th>Pull Requests</th>
+           <th>+/- Av.</th> {/* New column */}
           <th>%</th>
         </tr>
       </thead>
@@ -63,8 +65,11 @@ const CardInfo = () => {
               <div className="color-square"></div>
               {username}
             </td>
-            <td>{prCount}</td>
-            <td>{pr !== 0 ? ((prCount / pr) * 100).toFixed(1) : 0}%</td>
+            <td className="number-align">{prCount}</td>
+            <td className="number-align">
+              {Math.abs(prCount - pr / totalTeamMembers) < 0.499 ? "0" : (prCount - pr / totalTeamMembers).toFixed(0)}
+            </td>
+            <td className="number-align">{pr !== 0 ? ((prCount / pr) * 100).toFixed(1) : 0}%</td>
           </tr>
         ))}
       </tbody>

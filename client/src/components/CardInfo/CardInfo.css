@@ -38,3 +38,7 @@ th {
   display: flex;
   align-items: center;
 }
+
+.number-align {
+  text-align: right;
+}

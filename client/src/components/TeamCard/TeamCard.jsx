@@ -3,7 +3,11 @@ import "./TeamCard.css";
 import CardInfo from "../CardInfo/CardInfo";
 import HundredSquareChart from "../HundredSquareChart/HundredSquareChart";
 import { useParams } from "react-router-dom";
-import AllIconsContainer from "../Icons/AllIconsContainer";
+import DeployedAppIconSvg from "../Icons/DeployedAppIconSvg";
+import GitHubIconSvg from "../Icons/GitHubIconSvg";
+import GoogleDocsLogoSvg from "../Icons/GoogleDocIconSvg";
+import SlackIconSvg from "../Icons/SlackIconSvg";
+import ProjectBoardIconSvg from "../Icons/ProjectBoardIconSvg";
 
 const TeamCard = () => {
   const { id } = useParams();
@@ -41,6 +45,8 @@ const TeamCard = () => {
   const team = rawData.find((team) => team.id === numericId);
   const usersData = team?.users || {};
 
+  const teamInfo = teamData.find((eachTeam) => eachTeam.id === numericId);
+
   const data = [];
   for (const user in usersData) {
     data.push(user, usersData[user]);
@@ -59,8 +65,14 @@ const TeamCard = () => {
         <HundredSquareChart data={data} />
       </div>
       <CardInfo numericId={numericId} />
-      <AllIconsContainer />
-      <div class="spacer"></div>
+      <div className="icons-container">
+        <GitHubIconSvg teamRepo={teamInfo.repo_link} />
+        <GoogleDocsLogoSvg teamBrief={teamInfo.project_brief} />
+        <SlackIconSvg teamSlack={teamInfo.slack_channel} />
+        <DeployedAppIconSvg teamSite={teamInfo.deployed_site} />
+        <ProjectBoardIconSvg teamBoard={teamInfo.project_board} />
+      </div>
+      <div className="spacer"></div>
     </div>
   );
 };

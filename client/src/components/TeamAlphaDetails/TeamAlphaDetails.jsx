@@ -7,25 +7,25 @@ const teamAlphaData = [
     name: "Saghar Hosseinardi",
     role: "Full-Stack Developer",
     githubUsername: "SagharHosseinmardi",
-    linkedinUsername: "Saghar Hosseinmardi",
+    linkedinUsername: "saghar-hosseinmardi-5b0919244",
   },
   {
     name: "Andriana Saffo",
     role: "Full-Stack Developer",
     githubUsername: "AndrianaOS",
-    linkedinUsername: "Andriana Saffo",
+    linkedinUsername: "andriana-saffo",
   },
   {
     name: "George Primentas",
     role: "Front-End Developer",
     githubUsername: "GeorgePrimentas",
-    linkedinUsername: "George Primentas",
+    linkedinUsername: "georgeprimentas",
   },
   {
     name: "Gayle Thompson Igwebike",
     role: "Full-Stack Developer",
     githubUsername: "Gayle-Thompson-Igwebike",
-    linkedinUsername: "Gayle Thompson-Igwebike",
+    linkedinUsername: "gayle-thompson-igwebike-624004228",
   },
 ];
 
@@ -38,6 +38,9 @@ const TeamAlphaDetails = () => {
           <DeveloperProfile key={index} person={person} />
         ))}
       </div>
+      <p className="white-text">-</p>
+      {/* <p className="white-text">-</p> */}
+      
     </div>
   );
 };

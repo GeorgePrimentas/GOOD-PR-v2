@@ -8,7 +8,7 @@ const Search = ({ teamData }) => {
   const [loadingTeamData, setLoadingTeamData] = useState(true);
 
   useEffect(() => {
-      fetch(`https://good-pr-v1-server.onrender.com/team-members?term=${input}`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/team-members?term=${input}`)
       .then((response) => response.json())
       .then((data) => {
         setTeamInfo(data);

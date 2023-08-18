@@ -15,7 +15,7 @@ const NavBar = ({ title }) => {
   const handleHamburgerClick = () => {
     setShowMenu(!showMenu);
   };
-  
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -54,6 +54,9 @@ const NavBar = ({ title }) => {
         >
           <div className="list-links">
             <Link to="/">Home</Link>
+          </div>
+          <div className="list-links">
+            <Link to="/form">Team Registration</Link>
           </div>
           <div className="list-links">
             <Link to="/search">Search</Link>

@@ -8,7 +8,7 @@ const CardInfo = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const numericId = parseInt(id, 10);
-    // Total number of Team Members
+  // Total number of Team Members
   const totalTeamMembers = allUsers.length;
 
   useEffect(() => {
@@ -34,7 +34,6 @@ const CardInfo = () => {
           setPr(selectedTeam.pullRequestCount);
         }
 
-
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -54,7 +53,7 @@ const CardInfo = () => {
         <tr>
           <th>Team Members</th>
           <th>Pull Requests</th>
-           <th>+/- Av.</th> {/* New column */}
+          <th>+/- Av.</th> {/* New column */}
           <th>%</th>
         </tr>
       </thead>
@@ -67,9 +66,13 @@ const CardInfo = () => {
             </td>
             <td className="number-align">{prCount}</td>
             <td className="number-align">
-              {Math.abs(prCount - pr / totalTeamMembers) < 0.499 ? "0" : (prCount - pr / totalTeamMembers).toFixed(0)}
+              {Math.abs(prCount - pr / totalTeamMembers) < 0.499
+                ? "0"
+                : (prCount - pr / totalTeamMembers).toFixed(0)}
             </td>
-            <td className="number-align">{pr !== 0 ? ((prCount / pr) * 100).toFixed(1) : 0}%</td>
+            <td className="number-align">
+              {pr !== 0 ? ((prCount / pr) * 100).toFixed(1) : 0}%
+            </td>
           </tr>
         ))}
       </tbody>

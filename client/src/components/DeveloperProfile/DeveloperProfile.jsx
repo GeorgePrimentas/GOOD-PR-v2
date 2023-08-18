@@ -19,7 +19,6 @@ const DeveloperProfile = ({ person }) => {
       </p>
     </div>
   );
-  
 };
 
 export default DeveloperProfile;

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import './TeamCard.css';
 import CardInfo from '../CardInfo/CardInfo';
 // import ClickableCards from '../ClickableCards/ClickableCards';

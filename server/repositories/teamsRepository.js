@@ -51,7 +51,7 @@ const urlWithoutProtocol = url.replace(/^https:\/\//i, "");
 
 // Split the URL by "/"
 const urlParts = urlWithoutProtocol.split("/");
-// console.log(urlParts);
+
 
 // Extract the owner and repo from the URL
 const owner = urlParts[1];
@@ -94,15 +94,8 @@ console.error("Team info:", error);
 // THIS INCLUDES THE NUMBER OF PULL REQUESTS DONE BY EACH MEMBER OF THE TEAM BASED ON THEIR GITHUB USERNAME
 export async function getAllTeamMembersPRs() {
 try {
-// console.log("time before getAllTeamRepos", Date.now());
-// const startTimer = new Date();
 
 const allTeamsRepos = await getAllTeamRepos();
-
-// const endTimer = new Date();
-// const timeDifference = endTimer - startTimer;
-// console.log("time taken by getAllRepos in milliseconds = ", timeDifference);
-// console.log("time after getAllTeamRepos", Date.now());
 
 const fetchPromises = allTeamsRepos.map(async (repo) => {
 const apiURL = `https://api.github.com/repos/${repo.owner}/${repo.repo}/pulls?state=all&per_page=100`;

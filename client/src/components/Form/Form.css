@@ -34,7 +34,7 @@
 .submit-btn {
   width: 8rem;
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #304FFE;
   color: #fff;
   font-size: 1em;
   font-weight: bold;
@@ -46,12 +46,12 @@
 }
 
 .submit-btn:hover {
-  background-color: #0056b3;
+  background-color: #0026CA;
 }
 
 .form-container label {
   font-size: 1em;
-  color: #007BFF;
+  color: #333333;
   margin-bottom: 5px;
   display: block;
 }

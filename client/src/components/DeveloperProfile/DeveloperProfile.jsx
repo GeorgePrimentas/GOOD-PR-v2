@@ -6,21 +6,15 @@ const DeveloperProfile = ({ person }) => {
       <h2 className="person-name"> Name: {person.name}</h2>
       <p className="person-role"> Role: {person.role}</p>
       <p className="person-github">
-        GitHub:{" "}
-        <a
-          href={`https://github.com/${person.githubUsername}`}
-          className="links"
-        >
-          {person.githubUsername}
+         Github: 
+        <a href={person.githubLink} target="_blank" rel="noopener noreferrer">
+           {person.githubLink}
         </a>
       </p>
       <p className="person-linkedin">
-        LinkedIn:{" "}
-        <a
-          href={`https://www.linkedin.com/in/${person.linkedinUsername}`}
-          className="links"
-        >
-          {person.linkedinUsername}
+         Linkedin:
+        <a href={person.linkedinLink} target="_blank" rel="noopener noreferrer"> 
+           {person.linkedinLink}
         </a>
       </p>
     </div>

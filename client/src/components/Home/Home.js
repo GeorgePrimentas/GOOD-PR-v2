@@ -26,7 +26,8 @@ function Home() {
   async function getAllTeamsAndMembersData() {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+        // `${process.env.REACT_APP_BACKEND_URL}/teamPr`
+        `http://localhost:8000/teamPr`
       );
       const data = await response.json();
       setTeamAndMemberData(data);
@@ -36,7 +37,8 @@ function Home() {
   }
 
   function getAllTeamData() {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/team`)
+    // fetch(`${process.env.REACT_APP_BACKEND_URL}/team`)
+    fetch(`http://localhost:8000/team`)
       .then((response) => response.json())
       .then((data) => {
         setTeamData(data);
